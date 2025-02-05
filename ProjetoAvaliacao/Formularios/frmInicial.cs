@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace ProjetoAvaliacao
 {
-    public partial class Form1 : Form
+    public partial class frmInicial : Form
     {
-        public Form1()
+        public frmInicial()
         {
             InitializeComponent();
+        }
+
+        private void btnCadastrar_Click(object sender, EventArgs e)
+        {
+            //Colocar login para acessar o cadastro
         }
     }
 }
