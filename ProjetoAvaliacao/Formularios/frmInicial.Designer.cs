@@ -53,6 +53,7 @@
             this.btnAvaliacao.TabIndex = 1;
             this.btnAvaliacao.Text = "Avaliação";
             this.btnAvaliacao.UseVisualStyleBackColor = true;
+            this.btnAvaliacao.Click += new System.EventHandler(this.btnAvaliacao_Click);
             // 
             // btnAnalise
             // 

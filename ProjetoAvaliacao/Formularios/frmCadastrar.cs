@@ -49,7 +49,45 @@ namespace ProjetoAvaliacao.Formularios
 
         private void button2_Click(object sender, EventArgs e)
         {
+            if (comboBox1.Text == "Grupo Especifico")
+            {
+                frmGrupo grupo = new frmGrupo();
+                if (grupo.ShowDialog() == DialogResult.OK)
+                {
+                    List<string> dados = grupo.ListaGrupos;                    
 
+                    foreach (string dado in dados)
+                    {
+                        //Pegar ID da campanha
+
+                        string campanha = textBox1.Text;
+
+                        string formato;
+
+                        if (radioButton1.Checked)
+                            formato = "A";
+
+                        else if (radioButton2.Checked)
+                            formato = "I";
+
+                        string tipoAvaliacao = comboBox2.Text;
+
+                        DateTime dataInicio = dateTimePicker1.Value;
+                        DateTime dataFim = dateTimePicker2.Value;
+
+                        var perguntas = dataGridView1.Rows[0].Cells["PERGUNTAS"].Value as IEnumerable<string>;
+
+                        if (perguntas != null)
+                        {
+                            foreach (var pergunta in perguntas)
+                            {
+                                //salvar perguntas  ( 1   Campanha    A   Auto Avaliação   Pergunta   SetorId )
+                            }
+                        }
+
+                    }
+                }
+            }
         }
     }
 }

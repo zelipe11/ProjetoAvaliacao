@@ -46,11 +46,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Formularios\frmAvaliacao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmAvaliacao.Designer.cs">
+      <DependentUpon>frmAvaliacao.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\frmCadastrar.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\frmCadastrar.Designer.cs">
       <DependentUpon>frmCadastrar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmGrupo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmGrupo.Designer.cs">
+      <DependentUpon>frmGrupo.cs</DependentUpon>
     </Compile>
     <Compile Include="Formularios\frmInicial.cs">
       <SubType>Form</SubType>
@@ -62,6 +74,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Formularios\frmCadastrar.resx">
       <DependentUpon>frmCadastrar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmGrupo.resx">
+      <DependentUpon>frmGrupo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\frmInicial.resx">
       <DependentUpon>frmInicial.cs</DependentUpon>
