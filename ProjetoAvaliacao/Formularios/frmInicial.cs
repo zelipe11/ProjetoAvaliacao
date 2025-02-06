@@ -1,4 +1,6 @@
 ﻿using ProjetoAvaliacao.Formularios;
+using ProjetoAvaliacao.Formularios.Analise;
+using ProjetoAvaliacao.Formularios.Cadastro;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,15 +22,14 @@ namespace ProjetoAvaliacao
 
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
-            //Colocar login para acessar o cadastro
-
-            frmCadastrar cadastrar = new frmCadastrar();
+            frmCadastro cadastrar = new frmCadastro();
             cadastrar.ShowDialog();
         }
 
-        private void btnAvaliacao_Click(object sender, EventArgs e)
+        private void btnAnalise_Click(object sender, EventArgs e)
         {
-
+            frmAnalise analise = new frmAnalise();
+            analise.ShowDialog();
         }
     }
 }

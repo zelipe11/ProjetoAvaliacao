@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FuncoesWinthor;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,23 @@ namespace ProjetoAvaliacao
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmInicial());
+            try
+            {
+                UsuarioVO logado = new UsuarioVO();
+
+                frmLogin login = new frmLogin(9701);
+
+                if (login.ShowDialog() == DialogResult.Yes)
+                {
+                    logado = login.usuario;
+                    Application.Run(new frmInicial());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.InnerException.ToString());
+            }
+            
         }
     }
 }

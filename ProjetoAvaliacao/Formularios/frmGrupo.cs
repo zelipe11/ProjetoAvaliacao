@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjetoAvaliacao.DAO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,10 +13,15 @@ namespace ProjetoAvaliacao.Formularios
 {
     public partial class frmGrupo : Form
     {
-        public List<string> ListaGrupos;
+        public List<int> ListaGrupos;
         public frmGrupo()
         {
             InitializeComponent();
+
+            DataTable combo = InformacaoDAO.PegarSetores();
+            comboBox1.DataSource = combo;
+            comboBox1.DisplayMember = "descricao";
+            comboBox1.ValueMember = "codsetor";
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -24,12 +30,35 @@ namespace ProjetoAvaliacao.Formularios
             {
                 if (row.Cells[0].Value != null)
                 {
-                    ListaGrupos.Add(row.Cells[0].Value.ToString());
+                    ListaGrupos.Add(Convert.ToInt32(row.Cells[1].Value));
                 }
             }
 
             this.DialogResult = DialogResult.OK;
             this.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int codSetor = Convert.ToInt32(comboBox1.SelectedValue);
+            string setor = comboBox1.Text;
+
+            dataGridView1.Rows.Add(codSetor, setor);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+                {
+                    dataGridView1.Rows.Remove(row);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Selecione uma linha para remover!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }
