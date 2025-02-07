@@ -19,7 +19,10 @@ namespace ProjetoAvaliacao.Formularios.Analise
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            int idCampanha = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value);
 
+            frmAnaliseResposta analiseResposta = new frmAnaliseResposta();
+            analiseResposta.ShowDialog();
         }
     }
 }
