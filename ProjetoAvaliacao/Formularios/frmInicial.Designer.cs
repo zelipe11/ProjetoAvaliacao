@@ -30,7 +30,6 @@
         {
             this.btnCadastrar = new System.Windows.Forms.Button();
             this.btnAnalise = new System.Windows.Forms.Button();
-            this.btnResultados = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -54,19 +53,10 @@
             this.btnAnalise.UseVisualStyleBackColor = true;
             this.btnAnalise.Click += new System.EventHandler(this.btnAnalise_Click);
             // 
-            // btnResultados
-            // 
-            this.btnResultados.Location = new System.Drawing.Point(12, 164);
-            this.btnResultados.Name = "btnResultados";
-            this.btnResultados.Size = new System.Drawing.Size(229, 65);
-            this.btnResultados.TabIndex = 3;
-            this.btnResultados.Text = "Resultados";
-            this.btnResultados.UseVisualStyleBackColor = true;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 235);
+            this.label1.Location = new System.Drawing.Point(9, 161);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(67, 13);
             this.label1.TabIndex = 4;
@@ -76,9 +66,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(253, 257);
+            this.ClientSize = new System.Drawing.Size(253, 183);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnResultados);
             this.Controls.Add(this.btnAnalise);
             this.Controls.Add(this.btnCadastrar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -94,7 +83,6 @@
 
         private System.Windows.Forms.Button btnCadastrar;
         private System.Windows.Forms.Button btnAnalise;
-        private System.Windows.Forms.Button btnResultados;
         private System.Windows.Forms.Label label1;
     }
 }
