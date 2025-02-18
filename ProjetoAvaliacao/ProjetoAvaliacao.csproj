@@ -39,6 +39,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,7 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\GrupoDAO.cs" />
     <Compile Include="DAO\InformacaoDAO.cs" />
+    <Compile Include="DAO\PerguntaDAO.cs" />
     <Compile Include="Formularios\Analise\frmAnalise.cs">
       <SubType>Form</SubType>
     </Compile>
