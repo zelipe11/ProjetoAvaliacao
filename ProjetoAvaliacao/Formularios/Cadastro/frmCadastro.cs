@@ -19,7 +19,7 @@ namespace ProjetoAvaliacao.Formularios.Cadastro
 
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
-            frmCadastrarCampanha cadastrarCampanha = new frmCadastrarCampanha();
+            frmCadastrarPesquisa cadastrarCampanha = new frmCadastrarPesquisa();
             cadastrarCampanha.ShowDialog();
         }
 

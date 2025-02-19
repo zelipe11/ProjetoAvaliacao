@@ -13,14 +13,16 @@ namespace ProjetoAvaliacao.DAO
     {
         public static int ValorPergunta()
         {
-            string sql = "select max(nvl(ID, 0)) + 1 from fstperguntarh";
+            string sql = "SELECT COALESCE(MAX(ID), 0) + 1 FROM fstperguntarh";
 
             DataTable dt = MetodosDB.ExecutaSelect(sql, "FESTPAN");
 
-            return Convert.ToInt32(dt.Rows[0][0].ToString());
+            return dt.Rows.Count > 0 && dt.Rows[0][0] != DBNull.Value
+                ? Convert.ToInt32(dt.Rows[0][0])
+                : 1;
         }
 
-        public static bool AdicionarPerguntas(int idPergunta, string descricaoPesq, int codGrupo, int tipoPesq, string tipoPerg, string pergunta)
+        public static void AdicionarPerguntas(int idPergunta, string descricaoPesq, int codGrupo, int tipoPesq, string tipoPerg, string pergunta)
         {
             OracleConnection conexao = ConexaoDB.GetConexaoProd();
             OracleTransaction transacao = conexao.BeginTransaction();
@@ -33,21 +35,22 @@ namespace ProjetoAvaliacao.DAO
                 cmdPagar.CommandText = @"INSERT INTO fstperguntarh (ID, DESCRICAOPESQ, CODGRUPO, TIPOPESQ, TIPOPERG, PERGUNTA)
                                         VALUES(:idpergunta, :descricaopesq, :codgrupo, :tipopesq, :tipoperg, :pergunta)";
 
-                
 
+                cmdPagar.Parameters.AddWithValue(":idpergunta", idPergunta);
+                cmdPagar.Parameters.AddWithValue(":descricaopesq", descricaoPesq);
                 cmdPagar.Parameters.AddWithValue(":codgrupo", codGrupo);
+                cmdPagar.Parameters.AddWithValue(":tipopesq", tipoPesq);
+                cmdPagar.Parameters.AddWithValue(":tipoperg", tipoPerg);
+                cmdPagar.Parameters.AddWithValue(":pergunta", pergunta);
 
 
                 cmdPagar.ExecuteNonQuery();
 
                 transacao.Commit();
-
-                return true;
             }
             catch (Exception erro)
             {
                 transacao.Rollback();
-                return false;
                 throw new Exception(erro.Message);
             }
             finally

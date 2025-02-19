@@ -37,5 +37,21 @@ namespace ProjetoAvaliacao.DAO
 
             return MetodosDB.ExecutaSelect(sql, "FESTPAN");
         }
+
+        public static int SequencialPesquisa()
+        {
+            string sql = "select COALESCE(MAX(codpesq,0)) + 1 from fstpesquisarh ";
+
+            DataTable dt = MetodosDB.ExecutaSelect(sql, "FESTPAN");
+
+            return Convert.ToInt32(dt.Rows[0][0].ToString());
+        }
+
+        public static DataTable TipoAvaliacao()
+        {
+            string sql = "select codavali, descricao from fstavaliadoresrh";
+
+            return MetodosDB.ExecutaSelect(sql, "FESTPAN");
+        }
     }
 }

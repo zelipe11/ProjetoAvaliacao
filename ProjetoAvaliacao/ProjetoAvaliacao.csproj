@@ -90,11 +90,11 @@
     <Compile Include="Formularios\frmAvaliacao.Designer.cs">
       <DependentUpon>frmAvaliacao.cs</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\Cadastro\frmCadastrarCampanha.cs">
+    <Compile Include="Formularios\Cadastro\frmCadastrarPesquisa.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\Cadastro\frmCadastrarCampanha.Designer.cs">
-      <DependentUpon>frmCadastrarCampanha.cs</DependentUpon>
+    <Compile Include="Formularios\Cadastro\frmCadastrarPesquisa.Designer.cs">
+      <DependentUpon>frmCadastrarPesquisa.cs</DependentUpon>
     </Compile>
     <Compile Include="Formularios\frmGrupo.cs">
       <SubType>Form</SubType>
@@ -116,8 +116,8 @@
     <EmbeddedResource Include="Formularios\Analise\frmAnaliseResposta.resx">
       <DependentUpon>frmAnaliseResposta.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\Cadastro\frmCadastrarCampanha.resx">
-      <DependentUpon>frmCadastrarCampanha.cs</DependentUpon>
+    <EmbeddedResource Include="Formularios\Cadastro\frmCadastrarPesquisa.resx">
+      <DependentUpon>frmCadastrarPesquisa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Cadastro\frmCadastrarGrupo.resx">
       <DependentUpon>frmCadastrarGrupo.cs</DependentUpon>

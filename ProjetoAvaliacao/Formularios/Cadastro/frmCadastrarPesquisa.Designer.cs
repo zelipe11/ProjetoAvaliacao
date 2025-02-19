@@ -1,6 +1,6 @@
 ﻿namespace ProjetoAvaliacao.Formularios
 {
-    partial class frmCadastrarCampanha
+    partial class frmCadastrarPesquisa
     {
         /// <summary>
         /// Required designer variable.
@@ -41,9 +41,9 @@
             this.label7 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -51,9 +51,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(92, 13);
+            this.label1.Size = new System.Drawing.Size(84, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Nome Campanha:";
+            this.label1.Text = "Nome Pesquisa:";
             // 
             // textBox1
             // 
@@ -169,23 +169,6 @@
             this.dateTimePicker2.Size = new System.Drawing.Size(87, 20);
             this.dateTimePicker2.TabIndex = 18;
             // 
-            // comboBox3
-            // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(301, 129);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(158, 21);
-            this.comboBox3.TabIndex = 20;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(298, 113);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(39, 13);
-            this.label5.TabIndex = 19;
-            this.label5.Text = "Grupo:";
-            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(384, 181);
@@ -196,14 +179,30 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // frmCadastrarCampanha
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(301, 130);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(158, 20);
+            this.textBox2.TabIndex = 23;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(298, 114);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(65, 13);
+            this.label5.TabIndex = 22;
+            this.label5.Text = "Id Pergunta:";
+            // 
+            // frmCadastrarPesquisa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(472, 219);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.comboBox3);
+            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label5);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.dateTimePicker2);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.label7);
@@ -218,9 +217,9 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "frmCadastrarCampanha";
+            this.Name = "frmCadastrarPesquisa";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Cadastrar Avaliação";
+            this.Text = "Cadastrar Pesquisa";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -241,8 +240,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label5;
     }
 }

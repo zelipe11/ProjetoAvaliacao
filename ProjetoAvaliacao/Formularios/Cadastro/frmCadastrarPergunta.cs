@@ -13,7 +13,7 @@ namespace ProjetoAvaliacao.Formularios.Cadastro
 {
     public partial class frmCadastrarPergunta : Form
     {
-        int IdPergunta;
+        public int IdPergunta = 1;
         public frmCadastrarPergunta()
         {
             InitializeComponent();
@@ -41,8 +41,10 @@ namespace ProjetoAvaliacao.Formularios.Cadastro
                 else if (radioButton2.Checked)
                     tipoPergunta = "T";
 
+                int tipoPesq = Convert.ToInt32(comboBox2.SelectedValue);
 
-                dataGridView1.Rows.Add(txtPergunta.Text, codGrupo, tipoPergunta);
+
+                dataGridView1.Rows.Add(txtPergunta.Text, codGrupo, tipoPesq,tipoPergunta);
 
                 txtPergunta.Clear();
                 txtPergunta.Focus();
@@ -81,7 +83,9 @@ namespace ProjetoAvaliacao.Formularios.Cadastro
                     int tipoPesq = Convert.ToInt32(row.Cells[2].Value.ToString());
                     string tipoPergunta = row.Cells[3].Value.ToString();
 
-                    //Adicionar Pergunta no grupo
+                    PerguntaDAO.AdicionarPerguntas(IdPergunta, descricaoperg, codGrupo, tipoPesq, tipoPergunta, pergunta);
+
+                    dataGridView1.Rows.Clear();
                 }
             }
         }
@@ -99,12 +103,14 @@ namespace ProjetoAvaliacao.Formularios.Cadastro
 
         private void comboBox1_SelectedValueChanged(object sender, EventArgs e)
         {
-            int codGrupo = Convert.ToInt32(comboBox1.SelectedValue);
+            if (int.TryParse(comboBox1.SelectedValue?.ToString(), out int codGrupo))
+            {
+                DataTable combo = InformacaoDAO.PegarTipoPesqGrupo(codGrupo);
 
-            DataTable combo = InformacaoDAO.PegarTipoPesqGrupo(codGrupo);
-            comboBox1.DataSource = combo;
-            comboBox1.DisplayMember = "descricao";
-            comboBox1.ValueMember = "codpesq";
+                comboBox2.DataSource = combo;
+                comboBox2.DisplayMember = "descricao";
+                comboBox2.ValueMember = "codpesq";
+            }
         }
     }
 }
