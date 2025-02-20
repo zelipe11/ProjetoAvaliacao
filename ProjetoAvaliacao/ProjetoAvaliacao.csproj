@@ -54,6 +54,7 @@
     <Compile Include="DAO\GrupoDAO.cs" />
     <Compile Include="DAO\InformacaoDAO.cs" />
     <Compile Include="DAO\PerguntaDAO.cs" />
+    <Compile Include="DAO\PesquisaDAO.cs" />
     <Compile Include="Formularios\Analise\frmAnalise.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,12 +84,6 @@
     </Compile>
     <Compile Include="Formularios\Cadastro\frmCadastro.Designer.cs">
       <DependentUpon>frmCadastro.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Formularios\frmAvaliacao.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Formularios\frmAvaliacao.Designer.cs">
-      <DependentUpon>frmAvaliacao.cs</DependentUpon>
     </Compile>
     <Compile Include="Formularios\Cadastro\frmCadastrarPesquisa.cs">
       <SubType>Form</SubType>

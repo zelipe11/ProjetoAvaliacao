@@ -40,11 +40,13 @@ namespace ProjetoAvaliacao.DAO
 
         public static int SequencialPesquisa()
         {
-            string sql = "select COALESCE(MAX(codpesq,0)) + 1 from fstpesquisarh ";
+            string sql = "select COALESCE(MAX(codpesq),0) + 1 from fstpesquisarh ";
 
             DataTable dt = MetodosDB.ExecutaSelect(sql, "FESTPAN");
 
-            return Convert.ToInt32(dt.Rows[0][0].ToString());
+            return dt.Rows.Count > 0 && dt.Rows[0][0] != DBNull.Value
+                ? Convert.ToInt32(dt.Rows[0][0])
+                : 1;
         }
 
         public static DataTable TipoAvaliacao()

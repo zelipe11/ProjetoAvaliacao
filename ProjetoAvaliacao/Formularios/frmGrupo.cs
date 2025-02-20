@@ -13,7 +13,7 @@ namespace ProjetoAvaliacao.Formularios
 {
     public partial class frmGrupo : Form
     {
-        public List<int> ListaGrupos;
+        public List<int> ListaGrupos = new List<int>();
         public frmGrupo()
         {
             InitializeComponent();
@@ -30,6 +30,7 @@ namespace ProjetoAvaliacao.Formularios
             {
                 if (row.Cells[0].Value != null)
                 {
+                    
                     ListaGrupos.Add(Convert.ToInt32(row.Cells[1].Value));
                 }
             }
@@ -43,7 +44,7 @@ namespace ProjetoAvaliacao.Formularios
             int codSetor = Convert.ToInt32(comboBox1.SelectedValue);
             string setor = comboBox1.Text;
 
-            dataGridView1.Rows.Add(codSetor, setor);
+            dataGridView1.Rows.Add(setor, codSetor);
         }
 
         private void button2_Click(object sender, EventArgs e)

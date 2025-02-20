@@ -35,25 +35,44 @@ namespace ProjetoAvaliacao.Formularios
                     foreach (int dado in dados)
                     {
                         int idPesquisa = InformacaoDAO.SequencialPesquisa();
-
+                        string tipoPesq = comboBox1.Text;
+                        int tipoAvalia = Convert.ToInt32(comboBox2.SelectedValue);
                         string pesquisa = textBox1.Text;
-
                         string formato = "I";
-
                         string tipoAvaliacao = comboBox2.Text;
+                        int idPergunta = Convert.ToInt32(textBox2.Text);
 
                         DateTime dataInicio = dateTimePicker1.Value;
                         DateTime dataFim = dateTimePicker2.Value;
 
 
-                        //Cadastrar Campanha
-
+                        PesquisaDAO.InserirPesquisa(idPesquisa, pesquisa, tipoPesq, tipoAvalia, formato, dataInicio, dataFim, dado, idPergunta);
+                        MessageBox.Show("Pesquisa adicionado com sucesso");
                     }
                 }
             }
             else if (comboBox1.Text == "Toda Empresa")
             {
+                int idPesquisa = InformacaoDAO.SequencialPesquisa();
+                string tipoPesq = comboBox1.Text;
+                int tipoAvalia = Convert.ToInt32(comboBox2.SelectedValue);
+                string pesquisa = textBox1.Text;
+                string formato = "I";
 
+                if (radioButton1.Checked)
+                    formato = "A";
+                else if (radioButton2.Checked)
+                    formato = "I";
+
+                string tipoAvaliacao = comboBox2.Text;
+                int idPergunta = Convert.ToInt32(textBox2.Text);
+
+                DateTime dataInicio = dateTimePicker1.Value;
+                DateTime dataFim = dateTimePicker2.Value;
+
+
+                PesquisaDAO.InserirPesquisa(idPesquisa, pesquisa, tipoPesq, tipoAvalia, formato, dataInicio, dataFim, 0, idPergunta);
+                MessageBox.Show("Pesquisa adicionado com sucesso");
             }
         }
     }
