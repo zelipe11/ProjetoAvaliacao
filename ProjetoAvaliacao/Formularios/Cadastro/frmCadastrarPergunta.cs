@@ -83,10 +83,9 @@ namespace ProjetoAvaliacao.Formularios.Cadastro
                     int tipoPesq = Convert.ToInt32(row.Cells[2].Value.ToString());
                     string tipoPergunta = row.Cells[3].Value.ToString();
 
-                    PerguntaDAO.AdicionarPerguntas(IdPergunta, descricaoperg, codGrupo, tipoPesq, tipoPergunta, pergunta);
-
-                    dataGridView1.Rows.Clear();
+                    PerguntaDAO.AdicionarPerguntas(IdPergunta, descricaoperg, codGrupo, tipoPesq, tipoPergunta, pergunta);                    
                 }
+                dataGridView1.Rows.Clear();
             }
         }
 
