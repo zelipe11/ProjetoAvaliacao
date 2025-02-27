@@ -21,7 +21,7 @@ namespace ProjetoAvaliacao.DAO
                 cmdPagar.Transaction = transacao;
 
                 cmdPagar.CommandText = @"INSERT INTO fstpesquisarh (CODPESQ, DESCRICAOPESQ, TIPOPESQ, TIPOAVALIA, FORMATO, DTINICIO, DTFIM, CODSETOR, IDPERGUNTA)
-                                        VALUES(:codpesquisa, :descricaopesq, :tipopesq, :tipoavalia, :formato, :dtinicio, :dtfim, :codsetor, :idpergunta)";
+                                        VALUES(:codpesquisa, :descricaopesq, :tipopesq, :tipoavalia, :formato, TO_DATE(:dtinicio, 'DD/MM/YYYY'), TO_DATE(:dtfim, 'DD/MM/YYYY'), :codsetor, :idpergunta)";
 
 
                 cmdPagar.Parameters.AddWithValue(":codpesquisa", codPesquisa);
@@ -37,6 +37,43 @@ namespace ProjetoAvaliacao.DAO
                 else
                     cmdPagar.Parameters.AddWithValue(":codsetor", DBNull.Value);
 
+                cmdPagar.Parameters.AddWithValue(":idpergunta", idPergunta);
+                
+
+
+                cmdPagar.ExecuteNonQuery();
+
+                transacao.Commit();
+            }
+            catch (Exception erro)
+            {
+                transacao.Rollback();
+                throw new Exception(erro.Message);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+        
+        public static void InserirAvaliacao(int idavaliacao, int codfunc, DateTime dtInicio, DateTime dtFim, int idPergunta)
+        {
+            OracleConnection conexao = ConexaoDB.GetConexaoProd();
+            OracleTransaction transacao = conexao.BeginTransaction();
+
+            try
+            {
+                OracleCommand cmdPagar = conexao.CreateCommand();
+                cmdPagar.Transaction = transacao;
+
+                cmdPagar.CommandText = @"INSERT INTO fstavaliacaorh (IDAVALIACAO, CODFUNC, DTINICIO, DTFIM, IDPERGUNTA)
+                                        VALUES(:idavaliacao, :codfunc, TO_DATE(:dtinicio, 'DD/MM/YYYY'), TO_DATE(:dtfim, 'DD/MM/YYYY'), :idpergunta)";
+
+
+                cmdPagar.Parameters.AddWithValue(":idavaliacao", idavaliacao);
+                cmdPagar.Parameters.AddWithValue(":codfunc", codfunc);
+                cmdPagar.Parameters.AddWithValue(":dtinicio", dtInicio);
+                cmdPagar.Parameters.AddWithValue(":dtfim", dtFim);
                 cmdPagar.Parameters.AddWithValue(":idpergunta", idPergunta);
                 
 

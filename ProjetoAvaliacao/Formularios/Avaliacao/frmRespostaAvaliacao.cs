@@ -9,44 +9,45 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ProjetoAvaliacao.Formularios.Analise
+namespace ProjetoAvaliacao.Formularios.Avaliacao
 {
-    public partial class frmAnaliseResposta : Form
+    public partial class frmRespostaAvaliacao : Form
     {
-        public int CodPergunta = 0;
-        public int CodUser = 0;
-        public int CodGrupo = 0;
-
-        public frmAnaliseResposta(int codPergunta, int coduser, int codgrupo, string nomeFunc)
+        int Codgrupo = 0;
+        int Codfunc = 0;
+        int Avaliacao = 0;
+        public frmRespostaAvaliacao(int codgrupo, int codfunc, int avaliacao)
         {
             InitializeComponent();
-            this.CodPergunta = codPergunta;
-            this.CodUser = coduser;
-            this.CodGrupo = codgrupo;
-            label1.Text = nomeFunc;
+            this.Codgrupo = codgrupo;
+            this.Codfunc = codfunc;
+            this.Avaliacao = avaliacao;
 
-            DataTable resposta = RespostaDAO.RespostasFunc(CodPergunta, CodUser, CodGrupo);
+            DataTable nomeCargo = InformacaoDAO.FuncionariosNomeCargo(codfunc);
+            label1.Text = nomeCargo.Rows[0][0].ToString() + " - " + nomeCargo.Rows[0][1].ToString();
 
-            if (resposta.Rows[0]["OBSERVACAO"].ToString() != string.Empty)
+            DataTable pergunta = AvaliacaoDAO.Perguntas(codgrupo);
+
+            if (pergunta.Rows[0]["RESPOSTA"].ToString() != string.Empty)
             {
-                int columnIndex = dataGridView1.Columns["NOTARESP"].Index;
+                int columnIndex = dataGridView1.Columns["RESPOSTA"].Index;
 
                 dataGridView1.Columns.RemoveAt(columnIndex);
 
                 DataGridViewTextBoxColumn coluna = new DataGridViewTextBoxColumn
                 {
-                    Name = "NOTARESP",
-                    HeaderText = "Resposta Gestor",
-                    DataPropertyName = "RESPOSTAGESTOR"
+                    Name = "RESPOSTA",
+                    HeaderText = "Resposta",
+                    DataPropertyName = "RESPOSTA"
                 };
 
                 button1.Enabled = false;
                 dataGridView1.Columns.Insert(columnIndex, coluna);
-                dataGridView1.DataSource = resposta;
+                dataGridView1.DataSource = pergunta;
             }
             else
             {
-                dataGridView1.DataSource = resposta;
+                dataGridView1.DataSource = pergunta;
             }
         }
 
@@ -65,12 +66,13 @@ namespace ProjetoAvaliacao.Formularios.Analise
             {
                 if (!row.IsNewRow)
                 {
-                    int id = Convert.ToInt32(row.Cells["CODPERG"].Value);
+                    int id = Convert.ToInt32(row.Cells["ID"].Value);
                     int idperg = Convert.ToInt32(row.Cells["IDPERGUNTA"].Value);
                     int respostaFunc = Convert.ToInt32(row.Cells["RESPOSTA"].Value.ToString());
-                    string observacaoGestor = row.Cells["OBSERVACAO"].Value.ToString();
 
-                    RespostaDAO.RespostasAnaliseGestor(CodGrupo, CodUser, id, respostaFunc, observacaoGestor, idperg);
+
+                    RespostaDAO.FinalizarRespostas(Codgrupo, Codfunc, id, respostaFunc, idperg);
+                    RespostaDAO.AvaliacaoFinalizada(Avaliacao);
                 }
             }
             MessageBox.Show("Questionario respondido com sucesso");

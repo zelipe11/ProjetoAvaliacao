@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjetoAvaliacao.Formularios.Avaliacao;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -33,6 +34,12 @@ namespace ProjetoAvaliacao.Formularios.Cadastro
         {
             frmCadastrarGrupo cadastrarGrupo = new frmCadastrarGrupo();
             cadastrarGrupo.ShowDialog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            frmCadastroAvaliacao cadastroAvaliacao = new frmCadastroAvaliacao();
+            cadastroAvaliacao.ShowDialog();
         }
     }
 }

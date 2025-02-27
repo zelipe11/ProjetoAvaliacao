@@ -48,12 +48,65 @@ namespace ProjetoAvaliacao.DAO
                 ? Convert.ToInt32(dt.Rows[0][0])
                 : 1;
         }
+        
+        public static int SequencialAvaliacao()
+        {
+            string sql = "select COALESCE(MAX(IDAVALIACAO),0) + 1 from fstavaliacaorh ";
+
+            DataTable dt = MetodosDB.ExecutaSelect(sql, "FESTPAN");
+
+            return dt.Rows.Count > 0 && dt.Rows[0][0] != DBNull.Value
+                ? Convert.ToInt32(dt.Rows[0][0])
+                : 1;
+        }
 
         public static DataTable TipoAvaliacao()
         {
             string sql = "select codavali, descricao from fstavaliadoresrh";
 
             return MetodosDB.ExecutaSelect(sql, "FESTPAN");
+        }
+        
+        public static DataTable Funcionarios(int setor)
+        {
+            string sql = $"select codigo, nome from fstpesqrh where setor = {setor}";
+
+            return MetodosDB.ExecutaSelect(sql, "FESTPAN");
+        }
+        
+        public static DataTable FuncionariosNome(int cod)
+        {
+            string sql = $"select nome from fstpesqrh where codigo = {cod}";
+
+            return MetodosDB.ExecutaSelect(sql, "FESTPAN");
+        }
+        
+        public static DataTable FuncionariosNomeCargo(int cod)
+        {
+            string sql = $"select nome, funcao from fstpesqrh where codigo = {cod}";
+
+            return MetodosDB.ExecutaSelect(sql, "FESTPAN");
+        }
+
+        public static bool ExisteCPF(string cpf)
+        {
+            string sql = $"select p.* from fstpesqrh p where REPLACE(REPLACE(p.CPF, '.', ''), '-', '') = '{cpf}' and p.gestor = 'S'";
+
+            DataTable dt = MetodosDB.ExecutaSelect(sql, "FESTPAN");
+
+            if (dt.Rows.Count > 0)
+                return true;
+            else
+                return false;
+        }
+
+        public static int SetorDoUsuario(string cpf)
+        {
+            string sql = $"select setor from fstpesqrh where REPLACE(REPLACE(CPF, '.', ''), '-','') = '{cpf}'";
+
+            DataTable dt = MetodosDB.ExecutaSelect(sql, "FESTPAN");
+
+            return Convert.ToInt32(dt.Rows[0][0]);
         }
     }
 }

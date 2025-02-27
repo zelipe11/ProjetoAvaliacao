@@ -1,4 +1,5 @@
-﻿using ProjetoAvaliacao.Formularios;
+﻿using FuncoesWinthor;
+using ProjetoAvaliacao.Formularios;
 using ProjetoAvaliacao.Formularios.Analise;
 using ProjetoAvaliacao.Formularios.Cadastro;
 using System;
@@ -28,8 +29,14 @@ namespace ProjetoAvaliacao
 
         private void btnAnalise_Click(object sender, EventArgs e)
         {
-            frmAnalise analise = new frmAnalise();
-            analise.ShowDialog();
+            frmLogar login = new frmLogar("ANALISE");
+            login.ShowDialog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            frmLogar login = new frmLogar("AVALIACAO");
+            login.ShowDialog();
         }
     }
 }
