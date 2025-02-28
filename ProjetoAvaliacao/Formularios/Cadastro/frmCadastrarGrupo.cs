@@ -20,7 +20,7 @@ namespace ProjetoAvaliacao.Formularios.Cadastro
             DataTable combo = InformacaoDAO.PegarTipoPesq();
             comboBox1.DataSource = combo;
             comboBox1.DisplayMember = "descricao";
-            comboBox1.ValueMember = "codsetor";
+            comboBox1.ValueMember = "codpesq";
 
             CarregaTabela();
         }

@@ -50,7 +50,7 @@
             this.btnAnalise.Name = "btnAnalise";
             this.btnAnalise.Size = new System.Drawing.Size(229, 65);
             this.btnAnalise.TabIndex = 2;
-            this.btnAnalise.Text = "Analise";
+            this.btnAnalise.Text = "Analise Gestor";
             this.btnAnalise.UseVisualStyleBackColor = true;
             this.btnAnalise.Click += new System.EventHandler(this.btnAnalise_Click);
             // 

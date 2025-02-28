@@ -1,6 +1,7 @@
 ﻿using FuncoesWinthor;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.OracleClient;
 using System.Linq;
 using System.Text;
@@ -92,5 +93,15 @@ namespace ProjetoAvaliacao.DAO
                 conexao.Close();
             }
         }
+
+        public static DataTable TabelaPesquisa()
+        {
+            string sql = @"select p.codpesq, p.descricaopesq, p.tipopesq, (select descricao from fstavaliadoresrh where p.tipoavalia = codavali) avaliacao, 
+                            CASE WHEN p.formato = 'I' then 'IDENTIFICADA' WHEN p.formato = 'A' then 'ANONIMA' END AS formatopesq, p.dtinicio, p.dtfim,
+                            (select descricao from fstsetorrh where p.codsetor = codsetor) setor, idpergunta from fstpesquisarh p ";
+
+            return MetodosDB.ExecutaSelect(sql, "FESTPAN");
+        }
+
     }
 }

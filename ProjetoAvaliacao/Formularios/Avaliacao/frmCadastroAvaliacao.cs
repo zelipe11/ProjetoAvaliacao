@@ -26,34 +26,7 @@ namespace ProjetoAvaliacao.Formularios.Avaliacao
             int codfunc = Convert.ToInt32(textBox1.Text);
             int idPergunta = Convert.ToInt32(textBox2.Text);
 
-            DateTime dataInicio = dateTimePicker1.Value;
-            DateTime dataFim = dateTimePicker2.Value;
-
-
-            PesquisaDAO.InserirAvaliacao(idAvaliacao, codfunc, dataInicio, dataFim, idPergunta);
             MessageBox.Show("Avaliação adicionado com sucesso");
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                DataTable dt = InformacaoDAO.FuncionariosNome(Convert.ToInt32(textBox1.Text));
-
-
-                if (dt.Rows.Count > 0)
-                {
-                    textBox3.Text = dt.Rows[0]["nome"].ToString();
-                }
-                else
-                {
-                    textBox3.Text = "";
-                }
-            }
-            catch
-            {
-                textBox3.Text = "";
-            }
         }
     }
 }

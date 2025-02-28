@@ -71,5 +71,87 @@ namespace ProjetoAvaliacao.DAO
                 conexao.Close();
             }
         }
+
+        public static DataTable Pergunta(int idpergunta)
+        {
+            string sql = $"select pergunta, tipoperg from fstpergunta where idpergunta = {idpergunta}";
+
+            return MetodosDB.ExecutaSelect(sql, "FESTPAN");
+        }
+
+        public static DataTable PerguntasDaPesquisa(int id)
+        {
+            string sql = $@"select p.descricaopesq, p.codgrupo, (select descricao from fstgruporh where p.codgrupo = codgrupo) grupo, (select descricao from fsttipopesqrh where p.tipopesq = codpesq) tppesq, 
+                            CASE WHEN p.tipoperg = 'N' then 'NUMERICA' WHEN p.tipoperg = 'T' then 'TEXTO' END AS formatopesq, p.pergunta, p.idpergunta from fstperguntarh p where p.id = {id}";
+
+            return MetodosDB.ExecutaSelect(sql, "FESTPAN");
+        }
+
+        public static void ExcluirPergunta(int idPergunta)
+        {
+            OracleConnection conexao = ConexaoDB.GetConexaoProd();
+            OracleTransaction transacao = conexao.BeginTransaction();
+
+            try
+            {
+                OracleCommand cmdPagar = conexao.CreateCommand();
+                cmdPagar.Transaction = transacao;
+
+                cmdPagar.CommandText = @"UPDATE fstperguntarh SET
+                                            DTEXCLUSAO = sysdate
+                                            WHERE IDPERGUNTA = :idpergunta";
+
+
+                cmdPagar.Parameters.AddWithValue(":idpergunta", idPergunta);
+
+                cmdPagar.ExecuteNonQuery();
+
+                transacao.Commit();
+            }
+            catch (Exception erro)
+            {
+                transacao.Rollback();
+                throw new Exception(erro.Message);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }        
+        
+        public static void EditarPergunta(string pergunta, string tipoPerg, int idPergunta)
+        {
+            OracleConnection conexao = ConexaoDB.GetConexaoProd();
+            OracleTransaction transacao = conexao.BeginTransaction();
+
+            try
+            {
+                OracleCommand cmdPagar = conexao.CreateCommand();
+                cmdPagar.Transaction = transacao;
+
+                cmdPagar.CommandText = @"UPDATE fstperguntarh SET
+                                            pergunta = :pergunta,
+                                            tipoperg = :tipoperg
+                                            WHERE IDPERGUNTA = :idpergunta";
+
+
+                cmdPagar.Parameters.AddWithValue(":idpergunta", idPergunta);
+                cmdPagar.Parameters.AddWithValue(":pergunta", pergunta);
+                cmdPagar.Parameters.AddWithValue(":tipoperg", tipoPerg);
+
+                cmdPagar.ExecuteNonQuery();
+
+                transacao.Commit();
+            }
+            catch (Exception erro)
+            {
+                transacao.Rollback();
+                throw new Exception(erro.Message);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
     }
 }

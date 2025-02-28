@@ -27,6 +27,20 @@ namespace ProjetoAvaliacao.Formularios.Cadastro
 
             textBox2.Text = IdPergunta.ToString();
         }
+        
+        public frmCadastrarPergunta(int idPergunta)
+        {
+            InitializeComponent();
+
+            this.IdPergunta = idPergunta;
+
+            DataTable combo = InformacaoDAO.PegarGrupos();
+            comboBox1.DataSource = combo;
+            comboBox1.DisplayMember = "descricao";
+            comboBox1.ValueMember = "codgrupo";            
+
+            textBox2.Text = IdPergunta.ToString();
+        }
 
         private void btnAdicionarPergunta_Click(object sender, EventArgs e)
         {

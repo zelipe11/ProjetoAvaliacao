@@ -124,6 +124,24 @@
     <Compile Include="Formularios\Cadastro\frmCadastrarPesquisa.Designer.cs">
       <DependentUpon>frmCadastrarPesquisa.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\Cadastro\frmEditarPergunta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Cadastro\frmEditarPergunta.Designer.cs">
+      <DependentUpon>frmEditarPergunta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Cadastro\frmPergunta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Cadastro\frmPergunta.Designer.cs">
+      <DependentUpon>frmPergunta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Cadastro\frmPesquisa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Cadastro\frmPesquisa.Designer.cs">
+      <DependentUpon>frmPesquisa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\frmGrupo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -170,6 +188,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Cadastro\frmCadastro.resx">
       <DependentUpon>frmCadastro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Cadastro\frmEditarPergunta.resx">
+      <DependentUpon>frmEditarPergunta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Cadastro\frmPergunta.resx">
+      <DependentUpon>frmPergunta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Cadastro\frmPesquisa.resx">
+      <DependentUpon>frmPesquisa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\frmGrupo.resx">
       <DependentUpon>frmGrupo.cs</DependentUpon>
