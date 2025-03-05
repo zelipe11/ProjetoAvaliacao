@@ -13,7 +13,7 @@ namespace ProjetoAvaliacao.DAO
     {
         public static DataTable RespostasFunc(int codperg, int codfunc, int codgrupo)
         {
-            string sql = $"select r.idpergunta, r.codperg,(select pergunta from fstperguntarh where r.idpergunta = idpergunta) pergunta, r.respostafunc, r.comentariofunc, r.respostagestor respostagestor, r.acoesgestor observacao from fstrespostasrh r where r.codperg = {codperg} and r.codfunc = {codfunc} and r.codgrupo = {codgrupo} ";
+            string sql = $"select r.idpergunta, r.codperg,(select pergunta from fstperguntarh where r.idpergunta = idpergunta) pergunta, r.respostafunc, r.comentariofunc, r.respostagestor respostagestor, r.dtprazo,r.acaogestor, r.observacao from fstrespostasrh r where r.codperg = {codperg} and r.codfunc = {codfunc} and r.codgrupo = {codgrupo} ";
 
             return MetodosDB.ExecutaSelect(sql, "FESTPAN");
         }
@@ -55,7 +55,7 @@ namespace ProjetoAvaliacao.DAO
             }
         }
         
-        public static void RespostasAnaliseGestor(int codGrupo, int codFunc, int codPerg, int respostaGestor, string acoesgestor, int idPesq)
+        public static void RespostasAnaliseGestor(int codGrupo, int codFunc, int codPerg, int respostaGestor, string observacao, string acoesgestor, int idPesq, DateTime data)
         {
             OracleConnection conexao = ConexaoDB.GetConexaoProd();
             OracleTransaction transacao = conexao.BeginTransaction();
@@ -67,7 +67,9 @@ namespace ProjetoAvaliacao.DAO
 
                 cmdPagar.CommandText = @"UPDATE fstrespostasrh SET
                                             RESPOSTAGESTOR = :respostagestor,
-                                            ACOESGESTOR = :acaogestor
+                                            ACOESGESTOR = :acaogestor,
+                                            OBSERVACAO = :observacao,
+                                            DTPRAZO = TO_DATE(:data, 'DD/MM/YYYY')
                                             where codperg = :codperg
                                             and codfunc = :codfunc 
                                             and codgrupo = :codgrupo
@@ -77,8 +79,10 @@ namespace ProjetoAvaliacao.DAO
                 cmdPagar.Parameters.AddWithValue(":codperg", codPerg);
                 cmdPagar.Parameters.AddWithValue(":respostagestor", respostaGestor);
                 cmdPagar.Parameters.AddWithValue(":acaogestor", acoesgestor);
+                cmdPagar.Parameters.AddWithValue(":observacao", observacao);
                 cmdPagar.Parameters.AddWithValue(":codfunc", codFunc);
                 cmdPagar.Parameters.AddWithValue(":idpesq", idPesq);
+                cmdPagar.Parameters.AddWithValue(":data", data);
 
                 cmdPagar.ExecuteNonQuery();
 

@@ -69,8 +69,10 @@ namespace ProjetoAvaliacao.Formularios.Analise
                     int idperg = Convert.ToInt32(row.Cells["IDPERGUNTA"].Value);
                     int respostaFunc = Convert.ToInt32(row.Cells["RESPOSTA"].Value.ToString());
                     string observacaoGestor = row.Cells["OBSERVACAO"].Value.ToString();
+                    string acaoGestor = row.Cells["ACAOGESTOR"].Value.ToString();
+                    DateTime dataprazo = DateTime.Now.AddDays(Convert.ToDouble(row.Cells["DTPRAZO"].Value));
 
-                    RespostaDAO.RespostasAnaliseGestor(CodGrupo, CodUser, id, respostaFunc, observacaoGestor, idperg);
+                    RespostaDAO.RespostasAnaliseGestor(CodGrupo, CodUser, id, respostaFunc, observacaoGestor, acaoGestor, idperg, dataprazo);
                 }
             }
             MessageBox.Show("Questionario respondido com sucesso");

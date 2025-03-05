@@ -1,4 +1,5 @@
 ﻿using ProjetoAvaliacao.DAO;
+using ProjetoAvaliacao.Formularios.Cadastro;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +14,7 @@ namespace ProjetoAvaliacao.Formularios
 {
     public partial class frmCadastrarPesquisa : Form
     {
+        public int IdPergunta = 0;
         public frmCadastrarPesquisa()
         {
             InitializeComponent();
@@ -21,6 +23,9 @@ namespace ProjetoAvaliacao.Formularios
             comboBox2.DataSource = combo;
             comboBox2.DisplayMember = "descricao";
             comboBox2.ValueMember = "codavali";
+
+            IdPergunta = PerguntaDAO.ValorPergunta();
+            textBox2.Text = IdPergunta.ToString();
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -39,15 +44,16 @@ namespace ProjetoAvaliacao.Formularios
                         int tipoAvalia = Convert.ToInt32(comboBox2.SelectedValue);
                         string pesquisa = textBox1.Text;
                         string formato = "I";
-                        string tipoAvaliacao = comboBox2.Text;
-                        int idPergunta = Convert.ToInt32(textBox2.Text);
+                        string tipoAvaliacao = comboBox2.Text;                        
 
                         DateTime dataInicio = dateTimePicker1.Value;
                         DateTime dataFim = dateTimePicker2.Value;
 
 
-                        PesquisaDAO.InserirPesquisa(idPesquisa, pesquisa, tipoPesq, tipoAvalia, formato, dataInicio, dataFim, dado, idPergunta);
-                        MessageBox.Show("Pesquisa adicionado com sucesso");
+                        PesquisaDAO.InserirPesquisa(idPesquisa, pesquisa, tipoPesq, tipoAvalia, formato, dataInicio, dataFim, dado, IdPergunta);
+
+                        frmCadastrarPergunta cadastrarPergunta = new frmCadastrarPergunta(IdPergunta);
+                        cadastrarPergunta.ShowDialog();
                     }
                 }
             }
@@ -65,14 +71,15 @@ namespace ProjetoAvaliacao.Formularios
                     formato = "I";
 
                 string tipoAvaliacao = comboBox2.Text;
-                int idPergunta = Convert.ToInt32(textBox2.Text);
 
                 DateTime dataInicio = dateTimePicker1.Value;
                 DateTime dataFim = dateTimePicker2.Value;
 
 
-                PesquisaDAO.InserirPesquisa(idPesquisa, pesquisa, tipoPesq, tipoAvalia, formato, dataInicio, dataFim, 0, idPergunta);
-                MessageBox.Show("Pesquisa adicionado com sucesso");
+                PesquisaDAO.InserirPesquisa(idPesquisa, pesquisa, tipoPesq, tipoAvalia, formato, dataInicio, dataFim, 0, IdPergunta);
+
+                frmCadastrarPergunta cadastrarPergunta = new frmCadastrarPergunta(IdPergunta);
+                cadastrarPergunta.ShowDialog();
             }
         }
     }

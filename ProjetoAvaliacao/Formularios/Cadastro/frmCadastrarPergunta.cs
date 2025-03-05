@@ -14,19 +14,6 @@ namespace ProjetoAvaliacao.Formularios.Cadastro
     public partial class frmCadastrarPergunta : Form
     {
         public int IdPergunta = 1;
-        public frmCadastrarPergunta()
-        {
-            InitializeComponent();
-
-            DataTable combo = InformacaoDAO.PegarGrupos();
-            comboBox1.DataSource = combo;
-            comboBox1.DisplayMember = "descricao";
-            comboBox1.ValueMember = "codgrupo";
-
-            IdPergunta = PerguntaDAO.ValorPergunta();
-
-            textBox2.Text = IdPergunta.ToString();
-        }
         
         public frmCadastrarPergunta(int idPergunta)
         {

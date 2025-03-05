@@ -31,12 +31,15 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.IDPERGUNTA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CODPERG = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PERGUNTA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RESPOSTA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.COMENTARIO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NOTARESP = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.ACAOGESTOR = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DTPRAZO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OBSERVACAO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -66,6 +69,8 @@
             this.RESPOSTA,
             this.COMENTARIO,
             this.NOTARESP,
+            this.ACAOGESTOR,
+            this.DTPRAZO,
             this.OBSERVACAO});
             this.dataGridView1.Location = new System.Drawing.Point(12, 55);
             this.dataGridView1.Name = "dataGridView1";
@@ -83,6 +88,15 @@
             this.button1.Text = "Salvar";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 417);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(212, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "* digite apenas o número de dias no prazo *";
             // 
             // IDPERGUNTA
             // 
@@ -133,6 +147,19 @@
             this.NOTARESP.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.NOTARESP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
+            // ACAOGESTOR
+            // 
+            this.ACAOGESTOR.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ACAOGESTOR.DataPropertyName = "ACAOGESTOR";
+            this.ACAOGESTOR.HeaderText = "Ação";
+            this.ACAOGESTOR.Name = "ACAOGESTOR";
+            // 
+            // DTPRAZO
+            // 
+            this.DTPRAZO.DataPropertyName = "DTPRAZO";
+            this.DTPRAZO.HeaderText = "Dias Prazo";
+            this.DTPRAZO.Name = "DTPRAZO";
+            // 
             // OBSERVACAO
             // 
             this.OBSERVACAO.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -145,6 +172,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label1);
@@ -162,12 +190,15 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridViewTextBoxColumn IDPERGUNTA;
         private System.Windows.Forms.DataGridViewTextBoxColumn CODPERG;
         private System.Windows.Forms.DataGridViewTextBoxColumn PERGUNTA;
         private System.Windows.Forms.DataGridViewTextBoxColumn RESPOSTA;
         private System.Windows.Forms.DataGridViewTextBoxColumn COMENTARIO;
         private System.Windows.Forms.DataGridViewComboBoxColumn NOTARESP;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ACAOGESTOR;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DTPRAZO;
         private System.Windows.Forms.DataGridViewTextBoxColumn OBSERVACAO;
     }
 }
