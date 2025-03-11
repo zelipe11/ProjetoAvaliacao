@@ -64,6 +64,12 @@
     <Compile Include="Formularios\Analise\frmAnalise.Designer.cs">
       <DependentUpon>frmAnalise.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\Analise\frmCriarSenha.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Analise\frmCriarSenha.Designer.cs">
+      <DependentUpon>frmCriarSenha.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\Avaliacao\frmAvaliacao.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,6 +164,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Formularios\Analise\frmAnalise.resx">
       <DependentUpon>frmAnalise.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Analise\frmCriarSenha.resx">
+      <DependentUpon>frmCriarSenha.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Avaliacao\frmAvaliacao.resx">
       <DependentUpon>frmAvaliacao.cs</DependentUpon>

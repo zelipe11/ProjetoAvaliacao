@@ -32,6 +32,12 @@ namespace ProjetoAvaliacao.Formularios.Analise
                 analise.ShowDialog();
             }
 
+            else if (!InformacaoDAO.ExisteCPF(cpf) && Tipo == "ANALISE")
+            {
+                frmCriarSenha criarSenha = new frmCriarSenha(cpf);
+                criarSenha.ShowDialog();
+            }
+
             else if (InformacaoDAO.ExisteCPF(cpf) && Tipo == "AVALIACAO")
             {
                 frmAvaliacao analise = new frmAvaliacao(cpf);

@@ -70,11 +70,8 @@ namespace ProjetoAvaliacao.Formularios
                 else if (radioButton2.Checked)
                     formato = "I";
 
-                string tipoAvaliacao = comboBox2.Text;
-
                 DateTime dataInicio = dateTimePicker1.Value;
                 DateTime dataFim = dateTimePicker2.Value;
-
 
                 PesquisaDAO.InserirPesquisa(idPesquisa, pesquisa, tipoPesq, tipoAvalia, formato, dataInicio, dataFim, 0, IdPergunta);
 
