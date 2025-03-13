@@ -24,28 +24,52 @@ namespace ProjetoAvaliacao.Formularios.Analise
         private void button1_Click(object sender, EventArgs e)
         {
             string cpf = textBox1.Text;
+            string senha = textBox2.Text;
             cpf = cpf.Replace(".", "").Replace("-", "");
 
-            if (InformacaoDAO.ExisteCPF(cpf) && Tipo == "ANALISE")
+            if (InformacaoDAO.ExisteCPF(cpf, senha) && Tipo == "ANALISE")
             {
                 frmAnalise analise = new frmAnalise(cpf);
                 analise.ShowDialog();
             }
 
-            else if (!InformacaoDAO.ExisteCPF(cpf) && Tipo == "ANALISE")
+            else if (!InformacaoDAO.ExisteCPF(cpf, senha) && Tipo == "ANALISE")
             {
-                frmCriarSenha criarSenha = new frmCriarSenha(cpf);
-                criarSenha.ShowDialog();
+                if (InformacaoDAO.TemCpf(cpf))
+                {
+                    if (!InformacaoDAO.TemSenha(cpf))
+                    {
+                        frmCriarSenha criarSenha = new frmCriarSenha(cpf);
+                        criarSenha.ShowDialog();
+                    }
+                    else
+                        MessageBox.Show("Senha Invalida!");
+                }
+                else
+                    MessageBox.Show("Esse CPF não está cadastrado, entre em contato com o RH");
+            }
+            
+            else if (!InformacaoDAO.ExisteCPF(cpf, senha) && Tipo == "AVALIACAO")
+            {
+                if (InformacaoDAO.TemCpf(cpf))
+                {
+                    if (!InformacaoDAO.TemSenha(cpf))
+                    {
+                        frmCriarSenha criarSenha = new frmCriarSenha(cpf);
+                        criarSenha.ShowDialog();
+                    }
+                    else
+                        MessageBox.Show("Senha Invalida!");
+                }
+                else
+                    MessageBox.Show("Esse CPF não está cadastrado, entre em contato com o RH");
             }
 
-            else if (InformacaoDAO.ExisteCPF(cpf) && Tipo == "AVALIACAO")
+            else if (InformacaoDAO.ExisteCPF(cpf, senha) && Tipo == "AVALIACAO")
             {
                 frmAvaliacao analise = new frmAvaliacao(cpf);
                 analise.ShowDialog();
             }
-
-            else
-                MessageBox.Show("Esse CPF não está cadastrado, entre em contato com o RH");
         }
     }
 }

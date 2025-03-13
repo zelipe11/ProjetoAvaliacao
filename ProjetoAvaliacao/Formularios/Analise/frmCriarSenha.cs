@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjetoAvaliacao.DAO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,9 +26,21 @@ namespace ProjetoAvaliacao.Formularios.Analise
             if (textBox1.Text == textBox2.Text)
             {
                 string senha = textBox1.Text;
+                InformacaoDAO.CriarSenha(Cpf, senha);
+                this.Close();
             }
             else
                 MessageBox.Show("Os dois campos estão diferentes");
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            if (textBox2.Text != textBox1.Text && textBox2.Text.Length > 0)
+            {
+                label3.Visible = true;
+            }
+            else
+                label3.Visible = false;
         }
     }
 }
