@@ -106,6 +106,12 @@
     <Compile Include="Formularios\Avaliacao\frmRespostaAvaliacao.Designer.cs">
       <DependentUpon>frmRespostaAvaliacao.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\Cadastro\frmAjustarGrupo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Cadastro\frmAjustarGrupo.Designer.cs">
+      <DependentUpon>frmAjustarGrupo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\Cadastro\frmCadastrarGrupo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -160,6 +166,12 @@
     <Compile Include="Formularios\frmInicial.Designer.cs">
       <DependentUpon>frmInicial.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmPesquisaGestor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPesquisaGestor.Designer.cs">
+      <DependentUpon>frmPesquisaGestor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Formularios\Analise\frmAnalise.resx">
@@ -185,6 +197,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Avaliacao\frmRespostaAvaliacao.resx">
       <DependentUpon>frmRespostaAvaliacao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Cadastro\frmAjustarGrupo.resx">
+      <DependentUpon>frmAjustarGrupo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Cadastro\frmCadastrarPesquisa.resx">
       <DependentUpon>frmCadastrarPesquisa.cs</DependentUpon>
@@ -212,6 +227,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\frmInicial.resx">
       <DependentUpon>frmInicial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPesquisaGestor.resx">
+      <DependentUpon>frmPesquisaGestor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -27,16 +28,23 @@ namespace ProjetoAvaliacao
             cadastrar.ShowDialog();
         }
 
-        private void btnAnalise_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-            frmLogar login = new frmLogar("ANALISE");
-            login.ShowDialog();
+            try
+            {
+                var startInfo = new ProcessStartInfo(@"\\10.10.10.15\ProjetosTI\Resposta Avaliacao\ProjetoRespostaAvaliacao.exe");
+                Process.Start(startInfo);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click_1(object sender, EventArgs e)
         {
-            frmLogar login = new frmLogar("AVALIACAO");
-            login.ShowDialog();
+            frmPesquisaGestor pesquisa = new frmPesquisaGestor();
+            pesquisa.ShowDialog();
         }
     }
 }

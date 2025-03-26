@@ -35,6 +35,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.IDGRUPO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GRUPOS = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TPPESQUISA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -53,9 +54,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(12, 59);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(39, 13);
+            this.label5.Size = new System.Drawing.Size(77, 13);
             this.label5.TabIndex = 17;
-            this.label5.Text = "Grupo:";
+            this.label5.Text = "Tipo Pesquisa:";
             // 
             // dataGridView1
             // 
@@ -63,6 +64,7 @@
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IDGRUPO,
             this.GRUPOS,
             this.TPPESQUISA});
             this.dataGridView1.Location = new System.Drawing.Point(12, 156);
@@ -71,15 +73,16 @@
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(447, 157);
             this.dataGridView1.TabIndex = 19;
+            this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(9, 140);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 13);
+            this.label1.Size = new System.Drawing.Size(129, 13);
             this.label1.TabIndex = 20;
-            this.label1.Text = "Grupos Já Criados:";
+            this.label1.Text = "Tipo Pesquisa Já Criados:";
             // 
             // button1
             // 
@@ -98,15 +101,23 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(153, 21);
             this.comboBox1.TabIndex = 22;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 13);
+            this.label2.Size = new System.Drawing.Size(39, 13);
             this.label2.TabIndex = 23;
-            this.label2.Text = "Tipo Pesquisa:";
+            this.label2.Text = "Grupo:";
+            // 
+            // IDGRUPO
+            // 
+            this.IDGRUPO.HeaderText = "Id Grupo";
+            this.IDGRUPO.Name = "IDGRUPO";
+            this.IDGRUPO.ReadOnly = true;
+            this.IDGRUPO.Visible = false;
             // 
             // GRUPOS
             // 
@@ -152,6 +163,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IDGRUPO;
         private System.Windows.Forms.DataGridViewTextBoxColumn GRUPOS;
         private System.Windows.Forms.DataGridViewTextBoxColumn TPPESQUISA;
     }

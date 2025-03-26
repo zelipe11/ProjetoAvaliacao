@@ -54,6 +54,7 @@ namespace ProjetoAvaliacao.Formularios
 
                         frmCadastrarPergunta cadastrarPergunta = new frmCadastrarPergunta(IdPergunta);
                         cadastrarPergunta.ShowDialog();
+                        
                     }
                 }
             }
@@ -77,7 +78,9 @@ namespace ProjetoAvaliacao.Formularios
 
                 frmCadastrarPergunta cadastrarPergunta = new frmCadastrarPergunta(IdPergunta);
                 cadastrarPergunta.ShowDialog();
+                
             }
+            this.Close();
         }
     }
 }

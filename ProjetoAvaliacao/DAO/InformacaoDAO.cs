@@ -27,7 +27,7 @@ namespace ProjetoAvaliacao.DAO
         
         public static DataTable PegarTipoPesqGrupo(int codGrupo)
         {
-            string sql = $"select p.codpesq, p.descricao from fsttipopesqrh p, fstgruporh g where p.codpesq = g.tipopesquisa and g.codgrupo = {codGrupo}";
+            string sql = $"select p.codpesq, p.descricao from fsttipopesqrh p, fstgruporh g where p.idgrupo = g.tipopesquisa and g.codgrupo = {codGrupo}";
 
             return MetodosDB.ExecutaSelect(sql, "FESTPAN");
         }
