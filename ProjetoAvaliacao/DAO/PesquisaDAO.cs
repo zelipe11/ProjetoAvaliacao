@@ -11,7 +11,7 @@ namespace ProjetoAvaliacao.DAO
 {
     public class PesquisaDAO
     {
-        public static void InserirPesquisa(int codPesquisa, string descricaoPesq, string tipoPesq, int tipoAvaliacao, string formato, DateTime dtInicio, DateTime dtFim, int codSetor, int idPergunta)
+        public static void InserirPesquisa(int codPesquisa, string descricaoPesq, string tipoPesq, int tipoAvaliacao, string formato, string dtInicio, string dtFim, int codSetor, int idPergunta)
         {
             OracleConnection conexao = ConexaoDB.GetConexaoProd();
             OracleTransaction transacao = conexao.BeginTransaction();
@@ -30,8 +30,16 @@ namespace ProjetoAvaliacao.DAO
                 cmdPagar.Parameters.AddWithValue(":tipopesq", tipoPesq);
                 cmdPagar.Parameters.AddWithValue(":tipoavalia", tipoAvaliacao);
                 cmdPagar.Parameters.AddWithValue(":formato", formato);
-                cmdPagar.Parameters.AddWithValue(":dtinicio", dtInicio);
-                cmdPagar.Parameters.AddWithValue(":dtfim", dtFim);
+
+                if (dtInicio != null) 
+                    cmdPagar.Parameters.AddWithValue(":dtinicio", dtInicio);
+                else
+                    cmdPagar.Parameters.AddWithValue(":dtinicio", DBNull.Value);
+
+                if (dtFim != null)
+                    cmdPagar.Parameters.AddWithValue(":dtfim", dtFim);
+                else
+                    cmdPagar.Parameters.AddWithValue(":dtfim", DBNull.Value);
 
                 if (codSetor != 0)
                     cmdPagar.Parameters.AddWithValue(":codsetor", codSetor);

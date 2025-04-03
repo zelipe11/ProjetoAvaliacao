@@ -13,7 +13,7 @@ namespace ProjetoAvaliacao.DAO
     {
         public static DataTable RespostasFunc(int codperg, int codfunc, int codgrupo)
         {
-            string sql = $"select r.idpergunta, r.codperg,(select pergunta from fstperguntarh where r.idpergunta = idpergunta) pergunta, r.respostafunc, r.comentariofunc, r.respostagestor respostagestor, r.dtprazo,r.acaogestor, r.observacao from fstrespostasrh r where r.codperg = {codperg} and r.codfunc = {codfunc} and r.codgrupo = {codgrupo} ";
+            string sql = $"select r.idpergunta, r.codperg,(select pergunta from fstperguntarh where r.idpergunta = idpergunta) pergunta, r.respostafunc, r.comentariofunc, r.acoesgestor, r.dtprazo,r.observacao from fstrespostasrh r where r.codperg = {codperg} and r.codfunc = {codfunc} and r.codgrupo = {codgrupo} ";
 
             return MetodosDB.ExecutaSelect(sql, "FESTPAN");
         }

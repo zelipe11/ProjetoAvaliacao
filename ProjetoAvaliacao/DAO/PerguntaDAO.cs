@@ -74,7 +74,7 @@ namespace ProjetoAvaliacao.DAO
 
         public static DataTable Pergunta(int idpergunta)
         {
-            string sql = $"select pergunta, tipoperg from fstpergunta where idpergunta = {idpergunta}";
+            string sql = $"select pergunta, tipoperg from fstperguntarh where idpergunta = {idpergunta}";
 
             return MetodosDB.ExecutaSelect(sql, "FESTPAN");
         }
@@ -82,7 +82,7 @@ namespace ProjetoAvaliacao.DAO
         public static DataTable PerguntasDaPesquisa(int id)
         {
             string sql = $@"select p.descricaopesq, p.codgrupo, (select descricao from fstgruporh where p.codgrupo = codgrupo) grupo, (select descricao from fsttipopesqrh where p.tipopesq = codpesq) tppesq, 
-                            CASE WHEN p.tipoperg = 'N' then 'NUMERICA' WHEN p.tipoperg = 'T' then 'TEXTO' END AS formatopesq, p.pergunta, p.idpergunta from fstperguntarh p where p.id = {id}";
+                            CASE WHEN p.tipoperg = 'N' then 'NUMERICA' WHEN p.tipoperg = 'T' then 'TEXTO' END AS formatopesq, p.pergunta, p.idpergunta from fstperguntarh p where p.id = {id} and dtexclusao is null";
 
             return MetodosDB.ExecutaSelect(sql, "FESTPAN");
         }

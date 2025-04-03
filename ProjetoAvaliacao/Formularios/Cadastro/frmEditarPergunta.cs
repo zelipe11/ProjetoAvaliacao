@@ -13,7 +13,7 @@ namespace ProjetoAvaliacao.Formularios.Cadastro
 {
     public partial class frmEditarPergunta : Form
     {
-        public int Idpergunta = 0;
+        int Idpergunta = 0;
         public frmEditarPergunta(int idpergunta)
         {
             InitializeComponent();

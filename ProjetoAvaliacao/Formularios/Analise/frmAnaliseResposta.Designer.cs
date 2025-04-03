@@ -37,7 +37,6 @@
             this.PERGUNTA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RESPOSTA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.COMENTARIO = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NOTARESP = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.ACAOGESTOR = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DTPRAZO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OBSERVACAO = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -68,15 +67,16 @@
             this.PERGUNTA,
             this.RESPOSTA,
             this.COMENTARIO,
-            this.NOTARESP,
             this.ACAOGESTOR,
             this.DTPRAZO,
             this.OBSERVACAO});
+            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridView1.Location = new System.Drawing.Point(12, 55);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(776, 353);
             this.dataGridView1.TabIndex = 1;
+            this.dataGridView1.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEnter);
             // 
             // button1
             // 
@@ -91,6 +91,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 417);
             this.label2.Name = "label2";
@@ -132,25 +133,10 @@
             this.COMENTARIO.HeaderText = "Comentario";
             this.COMENTARIO.Name = "COMENTARIO";
             // 
-            // NOTARESP
-            // 
-            this.NOTARESP.DataPropertyName = "RESPOSTA";
-            this.NOTARESP.HeaderText = "Nota Resposta";
-            this.NOTARESP.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5"});
-            this.NOTARESP.Name = "NOTARESP";
-            this.NOTARESP.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.NOTARESP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
             // ACAOGESTOR
             // 
             this.ACAOGESTOR.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ACAOGESTOR.DataPropertyName = "ACAOGESTOR";
+            this.ACAOGESTOR.DataPropertyName = "ACOESGESTOR";
             this.ACAOGESTOR.HeaderText = "Ação";
             this.ACAOGESTOR.Name = "ACAOGESTOR";
             // 
@@ -196,7 +182,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PERGUNTA;
         private System.Windows.Forms.DataGridViewTextBoxColumn RESPOSTA;
         private System.Windows.Forms.DataGridViewTextBoxColumn COMENTARIO;
-        private System.Windows.Forms.DataGridViewComboBoxColumn NOTARESP;
         private System.Windows.Forms.DataGridViewTextBoxColumn ACAOGESTOR;
         private System.Windows.Forms.DataGridViewTextBoxColumn DTPRAZO;
         private System.Windows.Forms.DataGridViewTextBoxColumn OBSERVACAO;

@@ -27,26 +27,53 @@ namespace ProjetoAvaliacao.Formularios.Analise
 
             DataTable resposta = RespostaDAO.RespostasFunc(CodPergunta, CodUser, CodGrupo);
 
-            if (resposta.Rows[0]["OBSERVACAO"].ToString() != string.Empty)
+            AdicionarColunaRespostaGestor();
+
+            dataGridView1.DataSource = resposta;
+
+            dataGridView1.DataError += DataGridView1_DataError;
+        }
+
+        private void AdicionarColunaRespostaGestor()
+        {
+            // Criar a coluna ComboBox
+            DataGridViewComboBoxColumn colRespostaGestor = new DataGridViewComboBoxColumn
             {
-                int columnIndex = dataGridView1.Columns["NOTARESP"].Index;
+                Name = "RESPOSTAGESTOR",
+                HeaderText = "Resposta Gestor",
+                DataPropertyName = "RESPOSTAGESTOR",
+                FlatStyle = FlatStyle.Flat
+            };
 
-                dataGridView1.Columns.RemoveAt(columnIndex);
-
-                DataGridViewTextBoxColumn coluna = new DataGridViewTextBoxColumn
-                {
-                    Name = "NOTARESP",
-                    HeaderText = "Resposta Gestor",
-                    DataPropertyName = "RESPOSTAGESTOR"
-                };
-
-                button1.Enabled = false;
-                dataGridView1.Columns.Insert(columnIndex, coluna);
-                dataGridView1.DataSource = resposta;
+            for (int i = 0; i <= 5; i++)
+            {
+                colRespostaGestor.Items.Add(i.ToString());
             }
-            else
+
+            dataGridView1.Columns.Add(colRespostaGestor);
+        }
+
+        private void DataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            // Tratar erros de validação do ComboBox
+            if (e.Exception is ArgumentException &&
+                dataGridView1.Columns[e.ColumnIndex] is DataGridViewComboBoxColumn)
             {
-                dataGridView1.DataSource = resposta;
+                e.ThrowException = false;
+                MessageBox.Show("Por favor, selecione um valor válido entre 0 e 5.", "Valor Inválido",
+                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void dataGridView1_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView1.Columns[e.ColumnIndex] is DataGridViewComboBoxColumn)
+            {
+                dataGridView1.BeginEdit(false);
+                if (dataGridView1.EditingControl is ComboBox comboBox)
+                {
+                    comboBox.DroppedDown = true;
+                }
             }
         }
 
@@ -54,7 +81,7 @@ namespace ProjetoAvaliacao.Formularios.Analise
         {
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
-                if (!row.IsNewRow && (row.Cells["RESPOSTA"].Value == null || string.IsNullOrWhiteSpace(row.Cells["RESPOSTA"].Value.ToString())))
+                if (!row.IsNewRow && (row.Cells["RESPOSTAGESTOR"].Value == null || string.IsNullOrWhiteSpace(row.Cells["RESPOSTAGESTOR"].Value.ToString())))
                 {
                     MessageBox.Show("Todas as linhas devem ter as Respostas e Comentarios respondidos!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -67,9 +94,9 @@ namespace ProjetoAvaliacao.Formularios.Analise
                 {
                     int id = Convert.ToInt32(row.Cells["CODPERG"].Value);
                     int idperg = Convert.ToInt32(row.Cells["IDPERGUNTA"].Value);
-                    int respostaFunc = Convert.ToInt32(row.Cells["RESPOSTA"].Value.ToString());
-                    string observacaoGestor = row.Cells["OBSERVACAO"].Value.ToString();
-                    string acaoGestor = row.Cells["ACAOGESTOR"].Value.ToString();
+                    int respostaFunc = Convert.ToInt32(row.Cells["RESPOSTAGESTOR"].Value.ToString());
+                    string observacaoGestor = row.Cells["OBSERVACAO"].Value.ToString().Trim();
+                    string acaoGestor = row.Cells["ACAOGESTOR"].Value.ToString().Trim();
                     DateTime dataprazo = DateTime.Now.AddDays(Convert.ToDouble(row.Cells["DTPRAZO"].Value));
 
                     RespostaDAO.RespostasAnaliseGestor(CodGrupo, CodUser, id, respostaFunc, observacaoGestor, acaoGestor, idperg, dataprazo);

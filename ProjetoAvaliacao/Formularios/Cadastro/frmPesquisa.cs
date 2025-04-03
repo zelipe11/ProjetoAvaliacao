@@ -29,6 +29,8 @@ namespace ProjetoAvaliacao.Formularios.Cadastro
         {
             frmCadastrarPesquisa cadastrarPesquisa = new frmCadastrarPesquisa();
             cadastrarPesquisa.ShowDialog();
+
+            GerarTabela();
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -37,6 +39,8 @@ namespace ProjetoAvaliacao.Formularios.Cadastro
 
             frmPergunta pergunta = new frmPergunta(id);
             pergunta.ShowDialog();
+
+            GerarTabela();
         }
     }
 }

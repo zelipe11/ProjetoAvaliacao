@@ -32,6 +32,10 @@
             this.button1 = new System.Windows.Forms.Button();
             this.btnAdicionarPergunta = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.PERGUNTAS = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GRUPO = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TPPESQUISA = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TIPOPERG = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtPergunta = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -46,10 +50,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.PERGUNTAS = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GRUPO = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TPPESQUISA = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TIPOPERG = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -104,6 +104,31 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(697, 206);
             this.dataGridView1.TabIndex = 17;
+            // 
+            // PERGUNTAS
+            // 
+            this.PERGUNTAS.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.PERGUNTAS.HeaderText = "Perguntas";
+            this.PERGUNTAS.Name = "PERGUNTAS";
+            this.PERGUNTAS.ReadOnly = true;
+            // 
+            // GRUPO
+            // 
+            this.GRUPO.HeaderText = "Grupo";
+            this.GRUPO.Name = "GRUPO";
+            this.GRUPO.ReadOnly = true;
+            // 
+            // TPPESQUISA
+            // 
+            this.TPPESQUISA.HeaderText = "Tipo Pesquisa";
+            this.TPPESQUISA.Name = "TPPESQUISA";
+            this.TPPESQUISA.ReadOnly = true;
+            // 
+            // TIPOPERG
+            // 
+            this.TIPOPERG.HeaderText = "Tipo Pergunta";
+            this.TIPOPERG.Name = "TIPOPERG";
+            this.TIPOPERG.ReadOnly = true;
             // 
             // txtPergunta
             // 
@@ -240,31 +265,6 @@
             this.label6.Size = new System.Drawing.Size(65, 13);
             this.label6.TabIndex = 31;
             this.label6.Text = "Id Pergunta:";
-            // 
-            // PERGUNTAS
-            // 
-            this.PERGUNTAS.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.PERGUNTAS.HeaderText = "Perguntas";
-            this.PERGUNTAS.Name = "PERGUNTAS";
-            this.PERGUNTAS.ReadOnly = true;
-            // 
-            // GRUPO
-            // 
-            this.GRUPO.HeaderText = "Grupo";
-            this.GRUPO.Name = "GRUPO";
-            this.GRUPO.ReadOnly = true;
-            // 
-            // TPPESQUISA
-            // 
-            this.TPPESQUISA.HeaderText = "Tipo Pesquisa";
-            this.TPPESQUISA.Name = "TPPESQUISA";
-            this.TPPESQUISA.ReadOnly = true;
-            // 
-            // TIPOPERG
-            // 
-            this.TIPOPERG.HeaderText = "Tipo Pergunta";
-            this.TIPOPERG.Name = "TIPOPERG";
-            this.TIPOPERG.ReadOnly = true;
             // 
             // frmCadastrarPergunta
             // 

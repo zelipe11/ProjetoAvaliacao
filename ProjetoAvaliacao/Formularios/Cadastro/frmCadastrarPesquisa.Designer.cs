@@ -44,6 +44,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // label1
@@ -102,6 +103,7 @@
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "Anonimo";
             this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
             // 
             // radioButton2
             // 
@@ -112,6 +114,7 @@
             this.radioButton2.TabIndex = 6;
             this.radioButton2.Text = "Indentificado";
             this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
             // 
             // comboBox2
             // 
@@ -138,7 +141,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(110, 134);
+            this.label6.Location = new System.Drawing.Point(110, 161);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(14, 13);
             this.label6.TabIndex = 15;
@@ -147,7 +150,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 114);
+            this.label7.Location = new System.Drawing.Point(12, 141);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(46, 13);
             this.label7.TabIndex = 16;
@@ -156,7 +159,7 @@
             // dateTimePicker1
             // 
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(15, 130);
+            this.dateTimePicker1.Location = new System.Drawing.Point(15, 157);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(87, 20);
             this.dateTimePicker1.TabIndex = 17;
@@ -164,14 +167,14 @@
             // dateTimePicker2
             // 
             this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker2.Location = new System.Drawing.Point(132, 130);
+            this.dateTimePicker2.Location = new System.Drawing.Point(132, 157);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(87, 20);
             this.dateTimePicker2.TabIndex = 18;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(384, 181);
+            this.button1.Location = new System.Drawing.Point(384, 206);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 21;
@@ -181,7 +184,7 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(301, 130);
+            this.textBox2.Location = new System.Drawing.Point(301, 157);
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(158, 20);
@@ -190,17 +193,30 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(298, 114);
+            this.label5.Location = new System.Drawing.Point(298, 141);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(65, 13);
             this.label5.TabIndex = 22;
             this.label5.Text = "Id Pergunta:";
             // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(310, 107);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(130, 17);
+            this.radioButton3.TabIndex = 24;
+            this.radioButton3.TabStop = true;
+            this.radioButton3.Text = "Avaliação Experiencia";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            this.radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
+            // 
             // frmCadastrarPesquisa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(472, 219);
+            this.ClientSize = new System.Drawing.Size(472, 241);
+            this.Controls.Add(this.radioButton3);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.button1);
@@ -244,5 +260,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.RadioButton radioButton3;
     }
 }

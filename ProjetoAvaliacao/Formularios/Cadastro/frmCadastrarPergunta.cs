@@ -49,6 +49,9 @@ namespace ProjetoAvaliacao.Formularios.Cadastro
 
                 txtPergunta.Clear();
                 txtPergunta.Focus();
+
+                comboBox1.Visible = false;
+                textBox1.Visible = false;
             }
             else
             {
@@ -87,6 +90,8 @@ namespace ProjetoAvaliacao.Formularios.Cadastro
                     PerguntaDAO.AdicionarPerguntas(IdPergunta, descricaoperg, codGrupo, tipoPesq, tipoPergunta, pergunta);                    
                 }
                 dataGridView1.Rows.Clear();
+                MessageBox.Show("Grupo criado com sucesso!");
+                this.Close();
             }
         }
 

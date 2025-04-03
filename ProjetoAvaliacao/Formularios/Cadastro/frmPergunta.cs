@@ -32,6 +32,8 @@ namespace ProjetoAvaliacao.Formularios.Cadastro
         {
             frmCadastrarPergunta cadastrarPergunta = new frmCadastrarPergunta(Id);
             cadastrarPergunta.ShowDialog();
+
+            GerarTabela();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -42,14 +44,18 @@ namespace ProjetoAvaliacao.Formularios.Cadastro
 
                 PerguntaDAO.ExcluirPergunta(idPergunta);
             }
+
+            GerarTabela();
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            int idPergunta = Convert.ToInt32(dataGridView1.SelectedRows[e.RowIndex].Cells["IDPERGUNTA"].Value);
+        {           
+            int idPergunta = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["IDPERGUNTA"].Value);
 
             frmEditarPergunta editarPergunta = new frmEditarPergunta(idPergunta);
             editarPergunta.ShowDialog();
+
+            GerarTabela();
         }
     }
 }
