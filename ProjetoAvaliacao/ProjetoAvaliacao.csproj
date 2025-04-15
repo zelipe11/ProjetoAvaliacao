@@ -166,6 +166,12 @@
     <Compile Include="Formularios\frmInicial.Designer.cs">
       <DependentUpon>frmInicial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\frmLogarRh.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmLogarRh.Designer.cs">
+      <DependentUpon>frmLogarRh.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmPesquisaGestor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -227,6 +233,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\frmInicial.resx">
       <DependentUpon>frmInicial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmLogarRh.resx">
+      <DependentUpon>frmLogarRh.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPesquisaGestor.resx">
       <DependentUpon>frmPesquisaGestor.cs</DependentUpon>

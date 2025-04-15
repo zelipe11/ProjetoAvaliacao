@@ -46,6 +46,10 @@ namespace ProjetoAvaliacao.Formularios.Cadastro
                 tipoPerg = "T";
 
             PerguntaDAO.EditarPergunta(pergunta, tipoPerg, Idpergunta);
+
+            MessageBox.Show("Pergunta editada com sucesso!");
+
+            this.Close();
         }
     }
 }

@@ -16,14 +16,22 @@ namespace ProjetoAvaliacao.Formularios.Analise
     {
         public int CodSetor = 0;
         public string Cpf;
+        public int CodGestor;
         public frmAnalise(string cpf)
         {
             InitializeComponent();
             this.Cpf = cpf;
             CodSetor = InformacaoDAO.SetorDoUsuario(cpf);
-            dataGridView1.DataSource = AnaliseDAO.RespostasSetor(CodSetor);
+            CodGestor = InformacaoDAO.CodigoDoUsuario(cpf);
 
-            DataTable combo = InformacaoDAO.Funcionarios(CodSetor);
+            dataGridView1.DataSource = AnaliseDAO.RespostasSetor(CodGestor);
+
+            DataTable combo = InformacaoDAO.Funcionarios(CodGestor);
+            DataRow newRow = combo.NewRow();
+            newRow["nome"] = "Todos";
+            newRow["codigo"] = 0;
+            combo.Rows.InsertAt(newRow, 0);
+
             comboBox1.DataSource = combo;
             comboBox1.DisplayMember = "nome";
             comboBox1.ValueMember = "codigo";

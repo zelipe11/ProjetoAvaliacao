@@ -70,7 +70,7 @@ namespace ProjetoAvaliacao.DAO
         
         public static DataTable Funcionarios(int setor)
         {
-            string sql = $"select codigo, nome from fstpesqrh where setor = {setor}";
+            string sql = $"select codigo, nome from fstpesqrh where codgestor = {setor}";
 
             return MetodosDB.ExecutaSelect(sql, "FESTPAN");
         }
@@ -101,6 +101,18 @@ namespace ProjetoAvaliacao.DAO
                 return false;
         }
 
+        public static bool ExisteCPFRH(string cpf, string senha)
+        {
+            string sql = $"select p.* from fstpesqrh p where REPLACE(REPLACE(p.CPF, '.', ''), '-', '') = '{cpf}' and p.senha = '{senha}' and p.RH = 'S'";
+
+            DataTable dt = MetodosDB.ExecutaSelect(sql, "FESTPAN");
+
+            if (dt.Rows.Count > 0)
+                return true;
+            else
+                return false;
+        }
+
         public static bool ExisteSenha(string cpf)
         {
             string sql = $"select * from fstpesqrh p where REPLACE(REPLACE(p.CPF, '.', ''), '-', '') = '{cpf}' and p.senha is not null and p.gestor = 'S'";
@@ -116,6 +128,15 @@ namespace ProjetoAvaliacao.DAO
         public static int SetorDoUsuario(string cpf)
         {
             string sql = $"select setor from fstpesqrh where REPLACE(REPLACE(CPF, '.', ''), '-','') = '{cpf}'";
+
+            DataTable dt = MetodosDB.ExecutaSelect(sql, "FESTPAN");
+
+            return Convert.ToInt32(dt.Rows[0][0]);
+        }
+        
+        public static int CodigoDoUsuario(string cpf)
+        {
+            string sql = $"select codigo from fstpesqrh where REPLACE(REPLACE(CPF, '.', ''), '-','') = '{cpf}'";
 
             DataTable dt = MetodosDB.ExecutaSelect(sql, "FESTPAN");
 
@@ -138,6 +159,19 @@ namespace ProjetoAvaliacao.DAO
         public static bool TemCpf(string cpf)
         {
             string sql = $@"select case when exists (select cpf from fstpesqrh where REPLACE(REPLACE(CPF, '.', ''), '-','') = '{cpf}' and gestor = 'S')
+                            then 1 else 0 end as cpfuser from dual";
+
+            DataTable dt = MetodosDB.ExecutaSelect(sql, "FESTPAN");
+
+            if (Convert.ToInt32(dt.Rows[0][0].ToString()) == 1)
+                return true;
+            else
+                return false;
+        }
+
+        public static bool TemCpfRh(string cpf)
+        {
+            string sql = $@"select case when exists (select cpf from fstpesqrh where REPLACE(REPLACE(CPF, '.', ''), '-','') = '{cpf}' and RH = 'S')
                             then 1 else 0 end as cpfuser from dual";
 
             DataTable dt = MetodosDB.ExecutaSelect(sql, "FESTPAN");

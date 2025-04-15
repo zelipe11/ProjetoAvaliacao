@@ -21,7 +21,7 @@ namespace ProjetoAvaliacao
             {
                 UsuarioVO logado = new UsuarioVO();
 
-                frmLogin login = new frmLogin(9701);
+                frmLogin login = new frmLogin(1);
 
                 if (login.ShowDialog() == DialogResult.Yes)
                 {
@@ -32,8 +32,7 @@ namespace ProjetoAvaliacao
             catch (Exception ex)
             {
                 MessageBox.Show(ex.InnerException.ToString());
-            }
-            
+            }            
         }
     }
 }

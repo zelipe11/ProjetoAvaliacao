@@ -22,12 +22,20 @@ namespace ProjetoAvaliacao.DAO
                 cmdPagar.Transaction = transacao;
 
                 cmdPagar.CommandText = @"INSERT INTO fstpesquisarh (CODPESQ, DESCRICAOPESQ, TIPOPESQ, TIPOAVALIA, FORMATO, DTINICIO, DTFIM, CODSETOR, IDPERGUNTA)
-                                        VALUES(:codpesquisa, :descricaopesq, :tipopesq, :tipoavalia, :formato, TO_DATE(:dtinicio, 'DD/MM/YYYY'), TO_DATE(:dtfim, 'DD/MM/YYYY'), :codsetor, :idpergunta)";
+                            VALUES(:codpesquisa, :descricaopesq, :tipopesq, :tipoavalia, :formato, 
+                            CASE WHEN :dtinicio IS NULL THEN NULL ELSE TO_DATE(:dtinicio, 'DD/MM/YYYY') END, 
+                            CASE WHEN :dtfim IS NULL THEN NULL ELSE TO_DATE(:dtfim, 'DD/MM/YYYY') END, 
+                            :codsetor, :idpergunta)";
 
 
                 cmdPagar.Parameters.AddWithValue(":codpesquisa", codPesquisa);
                 cmdPagar.Parameters.AddWithValue(":descricaopesq", descricaoPesq);
-                cmdPagar.Parameters.AddWithValue(":tipopesq", tipoPesq);
+
+                if (tipoPesq != null)
+                    cmdPagar.Parameters.AddWithValue(":tipopesq", tipoPesq);
+                else
+                    cmdPagar.Parameters.AddWithValue(":tipopesq", DBNull.Value);
+
                 cmdPagar.Parameters.AddWithValue(":tipoavalia", tipoAvaliacao);
                 cmdPagar.Parameters.AddWithValue(":formato", formato);
 
@@ -106,7 +114,7 @@ namespace ProjetoAvaliacao.DAO
         {
             string sql = @"select p.codpesq, p.descricaopesq, p.tipopesq, (select descricao from fstavaliadoresrh where p.tipoavalia = codavali) avaliacao, 
                             CASE WHEN p.formato = 'I' then 'IDENTIFICADA' WHEN p.formato = 'A' then 'ANONIMA' END AS formatopesq, p.dtinicio, p.dtfim,
-                            (select descricao from fstsetorrh where p.codsetor = codsetor) setor, idpergunta from fstpesquisarh p ";
+                            (select descricao from fstsetorrh where p.codsetor = codsetor) setor, idpergunta from fstpesquisarh p where dtexclusao is null ";
 
             return MetodosDB.ExecutaSelect(sql, "FESTPAN");
         }

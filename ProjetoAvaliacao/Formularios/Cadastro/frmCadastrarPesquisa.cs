@@ -41,6 +41,8 @@ namespace ProjetoAvaliacao.Formularios
 
                 PesquisaDAO.InserirPesquisa(idPesquisa, pesquisa, null, tipoAvalia, formato, null, null, 0, IdPergunta);
 
+                frmCadastrarPergunta cadastrarPergunta = new frmCadastrarPergunta(IdPergunta);
+                cadastrarPergunta.ShowDialog();
             }
 
             else if (comboBox1.Text == "Grupo Especifico")

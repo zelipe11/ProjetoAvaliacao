@@ -66,6 +66,12 @@ namespace ProjetoAvaliacao.Formularios.Cadastro
                 foreach (DataGridViewRow row in dataGridView1.SelectedRows)
                 {
                     dataGridView1.Rows.Remove(row);
+
+                    if (dataGridView1.Rows.Count == 0)
+                    {
+                        comboBox1.Visible = true;
+                        textBox1.Visible = true;
+                    }
                 }
             }
             else

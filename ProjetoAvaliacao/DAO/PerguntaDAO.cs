@@ -117,7 +117,39 @@ namespace ProjetoAvaliacao.DAO
             {
                 conexao.Close();
             }
-        }        
+        }
+        
+        public static void ExcluirPesquisa(int idPesquisa)
+        {
+            OracleConnection conexao = ConexaoDB.GetConexaoProd();
+            OracleTransaction transacao = conexao.BeginTransaction();
+
+            try
+            {
+                OracleCommand cmdPagar = conexao.CreateCommand();
+                cmdPagar.Transaction = transacao;
+
+                cmdPagar.CommandText = @"UPDATE fstpesquisarh SET
+                                            DTEXCLUSAO = sysdate
+                                            WHERE CODPESQ = :idpesquisa";
+
+
+                cmdPagar.Parameters.AddWithValue(":idpesquisa", idPesquisa);
+
+                cmdPagar.ExecuteNonQuery();
+
+                transacao.Commit();
+            }
+            catch (Exception erro)
+            {
+                transacao.Rollback();
+                throw new Exception(erro.Message);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
         
         public static void EditarPergunta(string pergunta, string tipoPerg, int idPergunta)
         {

@@ -24,8 +24,8 @@ namespace ProjetoAvaliacao
 
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
-            frmCadastro cadastrar = new frmCadastro();
-            cadastrar.ShowDialog();
+            frmCadastro cadastro = new frmCadastro();
+            cadastro.ShowDialog();
         }
 
         private void button2_Click(object sender, EventArgs e)

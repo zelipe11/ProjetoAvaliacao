@@ -42,5 +42,17 @@ namespace ProjetoAvaliacao.Formularios.Cadastro
 
             GerarTabela();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count == 1)
+            {
+                int idPesquisa = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["CODPESQ"].Value);
+
+                PerguntaDAO.ExcluirPesquisa(idPesquisa);
+            }
+
+            GerarTabela();
+        }
     }
 }

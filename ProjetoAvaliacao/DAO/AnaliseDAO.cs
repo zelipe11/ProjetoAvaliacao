@@ -14,19 +14,19 @@ namespace ProjetoAvaliacao.DAO
         {
             string sql = $@"select p.codpesq, p.descricaopesq, r.codgrupo, g.descricao descgrupo,
                             r.codfunc,
-                            (select nome from fstpesqrh where codigo = r.codfunc) funcionario,
+                            pr.nome funcionario,
                             TO_DATE(r.dtfinaliza, 'DD/MM/YYYY') dtresposta,
                             p.idpergunta
 
                             from fstpesquisarh p, fstperguntarh pp, 
-                            fstrespostasrh r , fstgruporh g
+                            fstrespostasrh r , fstgruporh g, fstpesqrh pr
 
-                            where p.codsetor = {codSetor}
-                            and p.idpergunta = pp.id 
-                            and pp.idpergunta = r.idpergunta 
+                            where p.idpergunta = pp.id 
+                            and pp.idpergunta = r.idpergunta
+                            and pr.codgestor = {codSetor}
                             and r.codgrupo = g.codgrupo
                             and r.dtfinaliza is not null
-                            group by r.codfunc, p.codpesq, p.descricaopesq, r.dtfinaliza, p.idpergunta, r.codfunc, r.codgrupo, g.descricao";
+                            group by r.codfunc, p.codpesq, p.descricaopesq, r.dtfinaliza, p.idpergunta, r.codfunc, r.codgrupo, g.descricao, pr.nome";
 
             return MetodosDB.ExecutaSelect(sql, "FESTPAN");
         }
@@ -35,24 +35,26 @@ namespace ProjetoAvaliacao.DAO
         {
             string sql = $@"select p.codpesq, p.descricaopesq, r.codgrupo, g.descricao descgrupo,
                             r.codfunc,
-                            (select nome from fstpesqrh where codigo = r.codfunc) funcionario,
+                            pr.nome funcionario,
                             TO_DATE(r.dtfinaliza, 'DD/MM/YYYY') dtresposta,
                             p.idpergunta
 
                             from fstpesquisarh p, fstperguntarh pp, 
-                            fstrespostasrh r , fstgruporh g
+                            fstrespostasrh r , fstgruporh g, fstpesqrh pr
 
-                            where p.codsetor = {codSetor}
-                            and r.codfunc = {codfunc}
-                            and p.idpergunta = pp.id 
+                            where p.idpergunta = pp.id 
                             and pp.idpergunta = r.idpergunta 
+                            and pr.codgestor = {codSetor}
                             and r.codgrupo = g.codgrupo
-                            and r.dtfinaliza is not null";
+                            and r.dtfinaliza is not null ";
 
             if (codpesq != 0)
                 sql += $" and p.codpesq = {codpesq} ";
 
-            sql += " group by r.codfunc, p.codpesq, p.descricaopesq, r.dtfinaliza, p.idpergunta, r.codfunc, r.codgrupo, g.descricao";
+            if (codfunc != 0)
+                sql += $" and r.codfunc = {codfunc} ";
+
+            sql += " group by r.codfunc, p.codpesq, p.descricaopesq, r.dtfinaliza, p.idpergunta, r.codfunc, r.codgrupo, g.descricao, pr.nome";
 
             return MetodosDB.ExecutaSelect(sql, "FESTPAN");
         }
