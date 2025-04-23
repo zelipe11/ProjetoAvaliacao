@@ -34,7 +34,7 @@
             this.IDPERGUNTA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PERGUNTA = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RESPOSTA = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.TIPOPERG = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,12 +60,14 @@
             this.IDPERGUNTA,
             this.ID,
             this.PERGUNTA,
-            this.RESPOSTA});
+            this.TIPOPERG});
+            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridView1.Location = new System.Drawing.Point(12, 50);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(776, 345);
             this.dataGridView1.TabIndex = 2;
+            this.dataGridView1.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEnter);
             // 
             // button1
             // 
@@ -94,21 +96,17 @@
             // 
             // PERGUNTA
             // 
-            this.PERGUNTA.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.PERGUNTA.DataPropertyName = "PERGUNTA";
             this.PERGUNTA.HeaderText = "Pergunta";
             this.PERGUNTA.Name = "PERGUNTA";
+            this.PERGUNTA.Width = 673;
             // 
-            // RESPOSTA
+            // TIPOPERG
             // 
-            this.RESPOSTA.DataPropertyName = "RESPOSTA";
-            this.RESPOSTA.HeaderText = "Resposta";
-            this.RESPOSTA.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.RESPOSTA.Name = "RESPOSTA";
+            this.TIPOPERG.DataPropertyName = "TIPOPERG";
+            this.TIPOPERG.HeaderText = "tipo pergunta";
+            this.TIPOPERG.Name = "TIPOPERG";
+            this.TIPOPERG.Visible = false;
             // 
             // frmRespostaAvaliacao
             // 
@@ -135,6 +133,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn IDPERGUNTA;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn PERGUNTA;
-        private System.Windows.Forms.DataGridViewComboBoxColumn RESPOSTA;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TIPOPERG;
     }
 }

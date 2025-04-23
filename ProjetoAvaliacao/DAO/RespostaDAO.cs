@@ -78,8 +78,8 @@ namespace ProjetoAvaliacao.DAO
                 cmdPagar.Parameters.AddWithValue(":codgrupo", codGrupo);
                 cmdPagar.Parameters.AddWithValue(":codperg", codPerg);
                 cmdPagar.Parameters.AddWithValue(":respostagestor", respostaGestor);
-                cmdPagar.Parameters.AddWithValue(":acaogestor", acoesgestor);
-                cmdPagar.Parameters.AddWithValue(":observacao", observacao);
+                cmdPagar.Parameters.AddWithValue(":acaogestor", acoesgestor.Trim());
+                cmdPagar.Parameters.AddWithValue(":observacao", observacao.Trim());
                 cmdPagar.Parameters.AddWithValue(":codfunc", codFunc);
                 cmdPagar.Parameters.AddWithValue(":idpesq", idPesq);
                 cmdPagar.Parameters.AddWithValue(":data", data);
@@ -137,6 +137,25 @@ namespace ProjetoAvaliacao.DAO
             DataTable dt = MetodosDB.ExecutaSelect(sql, "FESTPAN");
 
             return Convert.ToInt32(dt.Rows[0][0]);
+        }
+
+        public static bool ExisteRespostaSalva(int codgrupo, int codfunc, int codperg, int idpesq)
+        {
+            string sql = $"select * from fstrespostasrh where codgrupo = {codgrupo} and codfunc = {codfunc} and codperg = {codperg} and idpergunta = {idpesq} and avalexp is null";
+
+            DataTable dt = MetodosDB.ExecutaSelect(sql, "FESTPAN");
+
+            if (dt.Rows.Count > 0)
+                return true;
+            else
+                return false;
+        }
+
+        public static DataTable RespostasSalvas(int codPerg, int codGrupo, int codFunc, int idPesq)
+        {
+            string sql = $"select respostafunc, comentariofunc from fstrespostasrh where codperg = {codPerg} and codgrupo = {codGrupo} and codfunc = {codFunc} and idpergunta = {idPesq} and AVALEXP is null";
+
+            return MetodosDB.ExecutaSelect(sql, "FESTPAN");
         }
     }
 }

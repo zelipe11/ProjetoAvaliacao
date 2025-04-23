@@ -19,7 +19,7 @@ namespace ProjetoAvaliacao.Formularios.Avaliacao
         {
             InitializeComponent();
             this.Cpf = cpf;
-            int codSetor = InformacaoDAO.SetorDoUsuario(cpf);
+            int codSetor = InformacaoDAO.CodigoDoUsuario(cpf);            
             dataGridView1.DataSource = AvaliacaoDAO.Avaliacoes(codSetor);
         }
 

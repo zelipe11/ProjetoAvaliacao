@@ -16,6 +16,8 @@ namespace ProjetoAvaliacao.Formularios.Avaliacao
         int Codgrupo = 0;
         int Codfunc = 0;
         int Avaliacao = 0;
+
+        private bool jaExecutado = false;
         public frmRespostaAvaliacao(int codgrupo, int codfunc, int avaliacao)
         {
             InitializeComponent();
@@ -28,27 +30,48 @@ namespace ProjetoAvaliacao.Formularios.Avaliacao
 
             DataTable pergunta = AvaliacaoDAO.Perguntas(codgrupo);
 
-            if (pergunta.Rows[0]["RESPOSTA"].ToString() != string.Empty)
+            dataGridView1.DataSource = pergunta;
+
+            DataGridViewTextBoxColumn colunaResposta = new DataGridViewTextBoxColumn
             {
-                int columnIndex = dataGridView1.Columns["RESPOSTA"].Index;
+                Name = "RESPOSTA",
+                HeaderText = "Resposta"
+            };
+            dataGridView1.Columns.Add(colunaResposta);
 
-                dataGridView1.Columns.RemoveAt(columnIndex);
+            dataGridView1.DataBindingComplete += DataGridView1_DataBindingComplete;
+        }
 
-                DataGridViewTextBoxColumn coluna = new DataGridViewTextBoxColumn
+
+        private void DataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (jaExecutado)
+                return;
+
+            jaExecutado = true;
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                string tipoPergunta = row.Cells["TIPOPERG"].Value.ToString();
+                if (tipoPergunta == "N")
                 {
-                    Name = "RESPOSTA",
-                    HeaderText = "Resposta",
-                    DataPropertyName = "RESPOSTA"
-                };
+                    DataGridViewComboBoxCell comboBoxCell = new DataGridViewComboBoxCell();
+                    comboBoxCell.Items.AddRange(ObterOpcoesComboBox());
+                    comboBoxCell.Value = row.Cells["RESPOSTA"].Value;
+                    row.Cells["RESPOSTA"] = comboBoxCell;
+                }
+                else
+                {
+                    DataGridViewTextBoxCell textBoxCell = new DataGridViewTextBoxCell();
+                    textBoxCell.Value = row.Cells["RESPOSTA"].Value;
+                    row.Cells["RESPOSTA"] = textBoxCell;
+                }
+            }            
+        }
 
-                button1.Enabled = false;
-                dataGridView1.Columns.Insert(columnIndex, coluna);
-                dataGridView1.DataSource = pergunta;
-            }
-            else
-            {
-                dataGridView1.DataSource = pergunta;
-            }
+        private string[] ObterOpcoesComboBox()
+        {
+            return new string[] { "0", "1", "2", "3", "4" };
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -70,13 +93,25 @@ namespace ProjetoAvaliacao.Formularios.Avaliacao
                     int idperg = Convert.ToInt32(row.Cells["IDPERGUNTA"].Value);
                     int respostaFunc = Convert.ToInt32(row.Cells["RESPOSTA"].Value.ToString());
 
-
-                    RespostaDAO.FinalizarRespostas(Codgrupo, Codfunc, id, respostaFunc, idperg);
-                    RespostaDAO.AvaliacaoFinalizada(Avaliacao);
+                    RespostaDAO.FinalizarRespostas(Codgrupo, Codfunc, id, respostaFunc, idperg);                    
                 }
             }
+            RespostaDAO.AvaliacaoFinalizada(Avaliacao);
+
             MessageBox.Show("Questionario respondido com sucesso");
             this.Close();
+        }
+
+        private void dataGridView1_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView1.Columns[e.ColumnIndex] is DataGridViewComboBoxColumn)
+            {
+                dataGridView1.BeginEdit(false);
+                if (dataGridView1.EditingControl is ComboBox comboBox)
+                {
+                    comboBox.DroppedDown = true;
+                }
+            }
         }
     }
 }

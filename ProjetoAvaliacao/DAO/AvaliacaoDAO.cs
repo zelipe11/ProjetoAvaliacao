@@ -18,21 +18,22 @@ namespace ProjetoAvaliacao.DAO
                             where p.codigo = a.codfunc
                             and a.dtinicio <= sysdate
                             and a.dtfim >= sysdate
-                            and p.setor = {codsetor}";
+                            and p.codgestor = {codsetor}
+                            and a.respondido is null ";
 
             return MetodosDB.ExecutaSelect(sql, "FESTPAN");
         }
 
         public static DataTable Grupos(int idpergunta)
         {
-            string sql = $"select p.codgrupo, g.descricao from fstperguntarh p, fstgruporh g where p.codgrupo = g.codgrupo and id = {idpergunta} group by p.codgrupo, g.descricao";
+            string sql = $"select p.codgrupo, g.descricao from fstperguntarh p, fstgruporh g where p.codgrupo = g.codgrupo and p.tipopesq = {idpergunta} group by p.codgrupo, g.descricao";
 
             return MetodosDB.ExecutaSelect(sql, "FESTPAN");
         }
         
         public static DataTable Perguntas(int codgrupo)
         {
-            string sql = $"select p.IDPERGUNTA, p.ID, p.PERGUNTA, (select respostagestor from fstrespostasrh where p.idpergunta = idpergunta and p.id = codperg and avalexp = 'S') resposta from fstperguntarh p where p.codgrupo = {codgrupo}";
+            string sql = $"select p.IDPERGUNTA, p.ID, p.PERGUNTA, p.tipoperg from fstperguntarh p where p.codgrupo = {codgrupo}";
 
             return MetodosDB.ExecutaSelect(sql, "FESTPAN");
         }

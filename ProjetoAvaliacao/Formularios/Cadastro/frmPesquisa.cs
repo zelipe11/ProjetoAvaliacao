@@ -54,5 +54,21 @@ namespace ProjetoAvaliacao.Formularios.Cadastro
 
             GerarTabela();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count == 1)
+            {
+                int idPesquisa = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["CODPESQ"].Value);
+
+                DateTime dtInicio = Convert.ToDateTime(dataGridView1.SelectedRows[0].Cells["DTINICIO"].Value);
+                DateTime dtFim = Convert.ToDateTime(dataGridView1.SelectedRows[0].Cells["DTFIM"].Value);
+
+                frmEditarPeriodo editarPeriodo = new frmEditarPeriodo(idPesquisa, dtInicio, dtFim);
+                editarPeriodo.ShowDialog();
+            }
+
+            GerarTabela();
+        }
     }
 }

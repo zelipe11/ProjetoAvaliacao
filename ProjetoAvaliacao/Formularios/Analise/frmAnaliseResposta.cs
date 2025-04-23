@@ -27,16 +27,59 @@ namespace ProjetoAvaliacao.Formularios.Analise
 
             DataTable resposta = RespostaDAO.RespostasFunc(CodPergunta, CodUser, CodGrupo);
 
-            AdicionarColunaRespostaGestor();
-
             dataGridView1.DataSource = resposta;
 
-            dataGridView1.DataError += DataGridView1_DataError;
+            DataGridViewTextBoxColumn colunaResposta = new DataGridViewTextBoxColumn
+            {
+                Name = "RESPOSTAGESTOR",
+                HeaderText = "Resposta Gestor"
+            };
+
+            dataGridView1.Columns.Add(colunaResposta);
+
+            dataGridView1.DataBindingComplete += DataGridView1_DataBindingComplete;
+           
+        }
+
+        private void DataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                DataGridViewComboBoxCell comboBoxCell = new DataGridViewComboBoxCell();
+                comboBoxCell.Items.AddRange(ObterOpcoesComboBox());
+                comboBoxCell.Value = row.Cells["RESPOSTA"].Value;
+                row.Cells["RESPOSTA"] = comboBoxCell;
+
+            }
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (row.Cells["ID"].Value != DBNull.Value)
+                {
+                    int id = Convert.ToInt32(row.Cells["ID"].Value);
+                    int idPerg = Convert.ToInt32(row.Cells["IDPERGUNTA"].Value);
+
+                    if (RespostaDAO.ExisteRespostaSalva(CodGrupo, CodUser, id, idPerg))
+                    {
+                        DataTable resposta = RespostaDAO.RespostasSalvas(id, CodGrupo, CodUser, idPerg);
+
+                        if (resposta.Rows.Count > 0)
+                        {
+                            row.Cells["RESPOSTA"].Value = resposta.Rows[0][0] != DBNull.Value ? resposta.Rows[0][0].ToString() : string.Empty;
+                        }
+
+                    }
+                }
+            }
+        }
+
+        private string[] ObterOpcoesComboBox()
+        {
+            return new string[] { "0", "1", "2", "3", "4" };
         }
 
         private void AdicionarColunaRespostaGestor()
         {
-            // Criar a coluna ComboBox
             DataGridViewComboBoxColumn colRespostaGestor = new DataGridViewComboBoxColumn
             {
                 Name = "RESPOSTAGESTOR",
@@ -55,7 +98,6 @@ namespace ProjetoAvaliacao.Formularios.Analise
 
         private void DataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            // Tratar erros de validação do ComboBox
             if (e.Exception is ArgumentException &&
                 dataGridView1.Columns[e.ColumnIndex] is DataGridViewComboBoxColumn)
             {
@@ -97,7 +139,7 @@ namespace ProjetoAvaliacao.Formularios.Analise
                     int respostaFunc = Convert.ToInt32(row.Cells["RESPOSTAGESTOR"].Value.ToString());
                     string observacaoGestor = row.Cells["OBSERVACAO"].Value.ToString().Trim();
                     string acaoGestor = row.Cells["ACAOGESTOR"].Value.ToString().Trim();
-                    DateTime dataprazo = DateTime.Now.AddDays(Convert.ToDouble(row.Cells["DTPRAZO"].Value));
+                    DateTime dataprazo = Convert.ToDateTime(row.Cells["DTPRAZO"].Value.ToString());
 
                     RespostaDAO.RespostasAnaliseGestor(CodGrupo, CodUser, id, respostaFunc, observacaoGestor, acaoGestor, idperg, dataprazo);
                 }

@@ -110,6 +110,40 @@ namespace ProjetoAvaliacao.DAO
             }
         }
 
+        public static void AtualizarPesquisa(DateTime dtInicio, DateTime dtFim, int idPesq)
+        {
+            OracleConnection conexao = ConexaoDB.GetConexaoProd();
+            OracleTransaction transacao = conexao.BeginTransaction();
+
+            try
+            {
+                OracleCommand comando = conexao.CreateCommand();
+                comando.Transaction = transacao;
+
+                comando.CommandText = @"UPDATE fstpesquisarh SET
+                                        dtinicio = TO_DATE(:dtinicio, 'dd/MM/yyyy'),
+                                        dtfim = TO_DATE(:dtfim, 'dd/MM/yyyy')
+                                        WHERE codpesq = :idpesq";
+
+                comando.Parameters.AddWithValue(":dtinicio", dtInicio);
+                comando.Parameters.AddWithValue(":dtfim", dtFim);
+                comando.Parameters.AddWithValue(":idpesq", idPesq);
+
+                comando.ExecuteNonQuery();
+
+                transacao.Commit();
+            }
+            catch (Exception erro)
+            {
+                transacao.Rollback();
+                throw new Exception(erro.Message);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
         public static DataTable TabelaPesquisa()
         {
             string sql = @"select p.codpesq, p.descricaopesq, p.tipopesq, (select descricao from fstavaliadoresrh where p.tipoavalia = codavali) avaliacao, 
