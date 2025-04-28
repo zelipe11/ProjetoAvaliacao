@@ -30,8 +30,11 @@ namespace ProjetoAvaliacao.Formularios.Avaliacao
                 int idPergunta = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["IDPERGUNTA"].Value);
                 int codfunc = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["CODFUNC"].Value);
                 int avaliacao = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["IDAVALIACAO"].Value);
+
                 frmAvaliacaoGrupo grupo = new frmAvaliacaoGrupo(Cpf, idPergunta, codfunc, avaliacao);
                 grupo.ShowDialog();
+
+                this.Close();
             }
         }
     }

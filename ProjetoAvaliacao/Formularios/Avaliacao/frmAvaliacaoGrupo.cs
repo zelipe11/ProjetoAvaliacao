@@ -33,8 +33,11 @@ namespace ProjetoAvaliacao.Formularios.Analise
             if (dataGridView2.SelectedRows.Count == 1)
             {
                 int grupo = Convert.ToInt32(dataGridView2.SelectedRows[0].Cells["CODGRUPO"].Value);
+
                 frmRespostaAvaliacao respostaAvaliacao = new frmRespostaAvaliacao(grupo, Codfunc, Avaliacao);
                 respostaAvaliacao.ShowDialog();
+
+                this.Close();
             }
         }
     }

@@ -91,7 +91,7 @@ namespace ProjetoAvaliacao.Formularios.Avaliacao
                 {
                     int id = Convert.ToInt32(row.Cells["ID"].Value);
                     int idperg = Convert.ToInt32(row.Cells["IDPERGUNTA"].Value);
-                    int respostaFunc = Convert.ToInt32(row.Cells["RESPOSTA"].Value.ToString());
+                    string respostaFunc = row.Cells["RESPOSTA"].Value.ToString();
 
                     RespostaDAO.FinalizarRespostas(Codgrupo, Codfunc, id, respostaFunc, idperg);                    
                 }

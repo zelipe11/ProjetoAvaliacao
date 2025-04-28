@@ -32,6 +32,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.CODIGO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IDPERGUNTA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CODPERG = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PERGUNTA = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -40,6 +41,7 @@
             this.ACAOGESTOR = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DTPRAZO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OBSERVACAO = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,6 +64,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CODIGO,
             this.IDPERGUNTA,
             this.CODPERG,
             this.PERGUNTA,
@@ -76,12 +79,11 @@
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(899, 353);
             this.dataGridView1.TabIndex = 1;
-            this.dataGridView1.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEnter);
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(836, 417);
+            this.button1.Location = new System.Drawing.Point(678, 417);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
@@ -99,6 +101,13 @@
             this.label2.Size = new System.Drawing.Size(534, 20);
             this.label2.TabIndex = 3;
             this.label2.Text = "* digite o prazo no formato dd/MM/aaaa com as barras - EX: (01/01/2025) *";
+            // 
+            // CODIGO
+            // 
+            this.CODIGO.DataPropertyName = "CODIGO";
+            this.CODIGO.HeaderText = "idresp";
+            this.CODIGO.Name = "CODIGO";
+            this.CODIGO.Visible = false;
             // 
             // IDPERGUNTA
             // 
@@ -155,11 +164,23 @@
             this.OBSERVACAO.Name = "OBSERVACAO";
             this.OBSERVACAO.Width = 143;
             // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Location = new System.Drawing.Point(836, 417);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 4;
+            this.button2.Text = "Finalizar";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // frmAnaliseResposta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(923, 450);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
@@ -179,6 +200,7 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CODIGO;
         private System.Windows.Forms.DataGridViewTextBoxColumn IDPERGUNTA;
         private System.Windows.Forms.DataGridViewTextBoxColumn CODPERG;
         private System.Windows.Forms.DataGridViewTextBoxColumn PERGUNTA;
@@ -187,5 +209,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ACAOGESTOR;
         private System.Windows.Forms.DataGridViewTextBoxColumn DTPRAZO;
         private System.Windows.Forms.DataGridViewTextBoxColumn OBSERVACAO;
+        private System.Windows.Forms.Button button2;
     }
 }

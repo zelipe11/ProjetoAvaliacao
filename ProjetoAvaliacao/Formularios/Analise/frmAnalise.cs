@@ -17,14 +17,15 @@ namespace ProjetoAvaliacao.Formularios.Analise
         public int CodSetor = 0;
         public string Cpf;
         public int CodGestor;
+
+        bool Finalizados = false;
+
         public frmAnalise(string cpf)
         {
             InitializeComponent();
             this.Cpf = cpf;
             CodSetor = InformacaoDAO.SetorDoUsuario(cpf);
             CodGestor = InformacaoDAO.CodigoDoUsuario(cpf);
-
-            dataGridView1.DataSource = AnaliseDAO.RespostasSetor(CodGestor);
 
             DataTable combo = InformacaoDAO.Funcionarios(CodGestor);
             DataRow newRow = combo.NewRow();
@@ -35,6 +36,13 @@ namespace ProjetoAvaliacao.Formularios.Analise
             comboBox1.DataSource = combo;
             comboBox1.DisplayMember = "nome";
             comboBox1.ValueMember = "codigo";
+
+            CarregaTabela();
+        }
+
+        private void CarregaTabela()
+        {
+            dataGridView1.DataSource = AnaliseDAO.RespostasSetor(CodGestor);
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -46,14 +54,17 @@ namespace ProjetoAvaliacao.Formularios.Analise
 
             frmAnaliseResposta analiseResposta = new frmAnaliseResposta(idPerg, codFun, codGrupo, nomeFunc);
             analiseResposta.ShowDialog();
+
+            CarregaTabela();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             int codPesq = int.TryParse(textBox1.Text, out int result) ? result : 0;
             int codFunc = Convert.ToInt32(comboBox1.SelectedValue);
+            Finalizados = checkBox1.Checked;
 
-            dataGridView1.DataSource = AnaliseDAO.RespostasSetor(CodSetor, codFunc, codPesq);
+            dataGridView1.DataSource = AnaliseDAO.RespostasSetor(CodGestor, codFunc, codPesq, Finalizados);
         }
     }
 }

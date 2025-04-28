@@ -23,7 +23,10 @@ namespace ProjetoAvaliacao.DAO
 
                             where p.idpergunta = pp.id 
                             and pp.idpergunta = r.idpergunta
+                            and r.codfunc = pr.codigo
                             and pr.codgestor = {codSetor}
+                            and r.codgrupo not in (4)
+                            and r.dtfinalizagestor is null
                             and r.codgrupo = g.codgrupo
                             and r.dtfinaliza is not null
                             group by r.codfunc, p.codpesq, p.descricaopesq, r.dtfinaliza, p.idpergunta, r.codfunc, r.codgrupo, g.descricao, pr.nome";
@@ -31,7 +34,7 @@ namespace ProjetoAvaliacao.DAO
             return MetodosDB.ExecutaSelect(sql, "FESTPAN");
         }
         
-        public static DataTable RespostasSetor(int codSetor, int codfunc, int codpesq)
+        public static DataTable RespostasSetor(int codSetor, int codfunc, int codpesq, bool finalizadas)
         {
             string sql = $@"select p.codpesq, p.descricaopesq, r.codgrupo, g.descricao descgrupo,
                             r.codfunc,
@@ -44,9 +47,16 @@ namespace ProjetoAvaliacao.DAO
 
                             where p.idpergunta = pp.id 
                             and pp.idpergunta = r.idpergunta 
+                            and r.codfunc = pr.codigo
                             and pr.codgestor = {codSetor}
+                            and r.codgrupo not in (4)                            
                             and r.codgrupo = g.codgrupo
                             and r.dtfinaliza is not null ";
+
+            if (finalizadas)
+                sql += " and r.dtfinalizagestor is not null ";
+            else
+                sql += " and r.dtfinalizagestor is null ";
 
             if (codpesq != 0)
                 sql += $" and p.codpesq = {codpesq} ";

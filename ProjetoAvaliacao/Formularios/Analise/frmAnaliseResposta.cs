@@ -17,6 +17,8 @@ namespace ProjetoAvaliacao.Formularios.Analise
         public int CodUser = 0;
         public int CodGrupo = 0;
 
+        private bool jaExecutado = false;
+
         public frmAnaliseResposta(int codPergunta, int coduser, int codgrupo, string nomeFunc)
         {
             InitializeComponent();
@@ -43,20 +45,25 @@ namespace ProjetoAvaliacao.Formularios.Analise
 
         private void DataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
+            if (jaExecutado)
+                return;
+
+            jaExecutado = true;
+
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
                 DataGridViewComboBoxCell comboBoxCell = new DataGridViewComboBoxCell();
                 comboBoxCell.Items.AddRange(ObterOpcoesComboBox());
-                comboBoxCell.Value = row.Cells["RESPOSTA"].Value;
-                row.Cells["RESPOSTA"] = comboBoxCell;
+                comboBoxCell.Value = row.Cells["RESPOSTAGESTOR"].Value;
+                row.Cells["RESPOSTAGESTOR"] = comboBoxCell;
 
             }
 
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
-                if (row.Cells["ID"].Value != DBNull.Value)
+                if (row.Cells["CODPERG"].Value != DBNull.Value)
                 {
-                    int id = Convert.ToInt32(row.Cells["ID"].Value);
+                    int id = Convert.ToInt32(row.Cells["CODPERG"].Value);
                     int idPerg = Convert.ToInt32(row.Cells["IDPERGUNTA"].Value);
 
                     if (RespostaDAO.ExisteRespostaSalva(CodGrupo, CodUser, id, idPerg))
@@ -65,9 +72,15 @@ namespace ProjetoAvaliacao.Formularios.Analise
 
                         if (resposta.Rows.Count > 0)
                         {
-                            row.Cells["RESPOSTA"].Value = resposta.Rows[0][0] != DBNull.Value ? resposta.Rows[0][0].ToString() : string.Empty;
+                            row.Cells["RESPOSTAGESTOR"].Value = resposta.Rows[0][0] != DBNull.Value ? resposta.Rows[0][0].ToString() : string.Empty;
                         }
 
+                    }
+
+                    if (RespostaDAO.ExisteRespostaFinalizada(CodGrupo, CodUser, id, idPerg))
+                    {
+                        button1.Enabled = false;
+                        button2.Enabled = false;
                     }
                 }
             }
@@ -75,48 +88,7 @@ namespace ProjetoAvaliacao.Formularios.Analise
 
         private string[] ObterOpcoesComboBox()
         {
-            return new string[] { "0", "1", "2", "3", "4" };
-        }
-
-        private void AdicionarColunaRespostaGestor()
-        {
-            DataGridViewComboBoxColumn colRespostaGestor = new DataGridViewComboBoxColumn
-            {
-                Name = "RESPOSTAGESTOR",
-                HeaderText = "Resposta Gestor",
-                DataPropertyName = "RESPOSTAGESTOR",
-                FlatStyle = FlatStyle.Flat
-            };
-
-            for (int i = 0; i <= 5; i++)
-            {
-                colRespostaGestor.Items.Add(i.ToString());
-            }
-
-            dataGridView1.Columns.Add(colRespostaGestor);
-        }
-
-        private void DataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            if (e.Exception is ArgumentException &&
-                dataGridView1.Columns[e.ColumnIndex] is DataGridViewComboBoxColumn)
-            {
-                e.ThrowException = false;
-                MessageBox.Show("Por favor, selecione um valor válido entre 0 e 5.", "Valor Inválido",
-                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-
-        private void dataGridView1_CellEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            if (dataGridView1.Columns[e.ColumnIndex] is DataGridViewComboBoxColumn)
-            {
-                dataGridView1.BeginEdit(false);
-                if (dataGridView1.EditingControl is ComboBox comboBox)
-                {
-                    comboBox.DroppedDown = true;
-                }
-            }
+            return new string[] { "0", "1", "2", "3", "4", "5" };
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -139,12 +111,41 @@ namespace ProjetoAvaliacao.Formularios.Analise
                     int respostaFunc = Convert.ToInt32(row.Cells["RESPOSTAGESTOR"].Value.ToString());
                     string observacaoGestor = row.Cells["OBSERVACAO"].Value.ToString().Trim();
                     string acaoGestor = row.Cells["ACAOGESTOR"].Value.ToString().Trim();
-                    DateTime dataprazo = Convert.ToDateTime(row.Cells["DTPRAZO"].Value.ToString());
+                    DateTime? dataprazo = Convert.ToDateTime(row.Cells["DTPRAZO"].Value.ToString());
 
-                    RespostaDAO.RespostasAnaliseGestor(CodGrupo, CodUser, id, respostaFunc, observacaoGestor, acaoGestor, idperg, dataprazo);
+                    RespostaDAO.RespostasSalvasAnaliseGestor(CodGrupo, CodUser, id, respostaFunc, observacaoGestor, acaoGestor, idperg, dataprazo);
                 }
             }
-            MessageBox.Show("Questionario respondido com sucesso");
+            MessageBox.Show("Respostas Salvas com sucesso!");
+            this.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (!row.IsNewRow && (row.Cells["RESPOSTAGESTOR"].Value == null || string.IsNullOrWhiteSpace(row.Cells["RESPOSTAGESTOR"].Value.ToString())))
+                {
+                    MessageBox.Show("Todas as linhas devem ter as Respostas e Comentarios respondidos!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (!row.IsNewRow)
+                {
+                    int id = Convert.ToInt32(row.Cells["CODPERG"].Value);
+                    int idperg = Convert.ToInt32(row.Cells["IDPERGUNTA"].Value);
+                    int respostaFunc = Convert.ToInt32(row.Cells["RESPOSTAGESTOR"].Value.ToString());
+                    string observacaoGestor = row.Cells["OBSERVACAO"].Value.ToString().Trim();
+                    string acaoGestor = row.Cells["ACAOGESTOR"].Value.ToString().Trim();
+                    DateTime? dataprazo = Convert.ToDateTime(row.Cells["DTPRAZO"].Value.ToString());
+
+                    RespostaDAO.RespostasFinalizaAnaliseGestor(CodGrupo, CodUser, id, respostaFunc, observacaoGestor, acaoGestor, idperg, dataprazo);
+                }
+            }
+            MessageBox.Show("Questionario finalizado com sucesso!");
             this.Close();
         }
     }

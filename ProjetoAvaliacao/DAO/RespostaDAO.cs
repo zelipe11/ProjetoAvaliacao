@@ -13,12 +13,25 @@ namespace ProjetoAvaliacao.DAO
     {
         public static DataTable RespostasFunc(int codperg, int codfunc, int codgrupo)
         {
-            string sql = $"select r.idpergunta, r.codperg,(select pergunta from fstperguntarh where r.idpergunta = idpergunta) pergunta, r.respostafunc, r.comentariofunc, r.acoesgestor, r.dtprazo,r.observacao from fstrespostasrh r where r.codperg = {codperg} and r.codfunc = {codfunc} and r.codgrupo = {codgrupo} ";
+            string sql = $"select r.codigo ,r.idpergunta, r.codperg,(select pergunta from fstperguntarh where r.idpergunta = idpergunta) pergunta, r.respostafunc, r.comentariofunc, r.acoesgestor, r.dtprazo,r.observacao from fstrespostasrh r where r.codperg = {codperg} and r.codfunc = {codfunc} and r.codgrupo = {codgrupo} ";
 
             return MetodosDB.ExecutaSelect(sql, "FESTPAN");
         }
 
-        public static void FinalizarRespostas(int codGrupo, int codFunc, int codPerg, int respostaGestor, int idPesq)
+        public static bool ExisteRespostaFinalizada(int codgrupo, int codfunc, int codperg, int idPesq)
+        {
+            string sql = $"select * from fstrespostasrh where codgrupo = {codgrupo} and codfunc = {codfunc} and codperg = {codperg} and idpergunta = {idPesq} and dtfinaliza is not null";
+
+            DataTable dt = MetodosDB.ExecutaSelect(sql, "FESTPAN");
+
+            if (dt.Rows.Count > 0)
+                return true;
+
+            else
+                return false;
+        }
+
+        public static void FinalizarRespostas(int codGrupo, int codFunc, int codPerg, string respostaGestor, int idPesq)
         {
             OracleConnection conexao = ConexaoDB.GetConexaoProd();
             OracleTransaction transacao = conexao.BeginTransaction();
@@ -28,7 +41,7 @@ namespace ProjetoAvaliacao.DAO
                 OracleCommand cmdPagar = conexao.CreateCommand();
                 cmdPagar.Transaction = transacao;
 
-                cmdPagar.CommandText = @"INSERT INTO fstrespostasrh (CODIGO, CODGRUPO, CODPERG, RESPOSTAGESTOR, DTFINALIZA, CODFUNC, IDPERGUNTA, AVALEXP)
+                cmdPagar.CommandText = @"INSERT INTO fstrespostasrh (CODIGO, CODGRUPO, CODPERG, RESPOSTAFUNC, DTFINALIZA, CODFUNC, IDPERGUNTA, AVALEXP)
                                         VALUES (:codigo, :codgrupo, :codperg, :respostagestor, sysdate, :codfunc, :idpesq, 'S')";
 
                 int codigo = CodigoResposta();
@@ -55,7 +68,7 @@ namespace ProjetoAvaliacao.DAO
             }
         }
         
-        public static void RespostasAnaliseGestor(int codGrupo, int codFunc, int codPerg, int respostaGestor, string observacao, string acoesgestor, int idPesq, DateTime data)
+        public static void RespostasSalvasAnaliseGestor(int codGrupo, int codFunc, int codPerg, int respostaGestor, string observacao, string acoesgestor, int idPesq, DateTime? data)
         {
             OracleConnection conexao = ConexaoDB.GetConexaoProd();
             OracleTransaction transacao = conexao.BeginTransaction();
@@ -69,7 +82,8 @@ namespace ProjetoAvaliacao.DAO
                                             RESPOSTAGESTOR = :respostagestor,
                                             ACOESGESTOR = :acaogestor,
                                             OBSERVACAO = :observacao,
-                                            DTPRAZO = TO_DATE(:data, 'DD/MM/YYYY')
+                                            DTPRAZO = TO_DATE(:dtprazo, 'dd/MM/yyyy'),
+                                            DTSALVAGESTOR = sysdate,
                                             where codperg = :codperg
                                             and codfunc = :codfunc 
                                             and codgrupo = :codgrupo
@@ -82,7 +96,60 @@ namespace ProjetoAvaliacao.DAO
                 cmdPagar.Parameters.AddWithValue(":observacao", observacao.Trim());
                 cmdPagar.Parameters.AddWithValue(":codfunc", codFunc);
                 cmdPagar.Parameters.AddWithValue(":idpesq", idPesq);
-                cmdPagar.Parameters.AddWithValue(":data", data);
+
+                if (data != null)
+                    cmdPagar.Parameters.AddWithValue(":dtprazo", data);
+                else
+                    cmdPagar.Parameters.AddWithValue(":dtprazo", DBNull.Value);
+
+                cmdPagar.ExecuteNonQuery();
+
+                transacao.Commit();
+            }
+            catch (Exception erro)
+            {
+                transacao.Rollback();
+                throw new Exception(erro.Message);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+        
+        public static void RespostasFinalizaAnaliseGestor(int codGrupo, int codFunc, int codPerg, int respostaGestor, string observacao, string acoesgestor, int idPesq, DateTime? data)
+        {
+            OracleConnection conexao = ConexaoDB.GetConexaoProd();
+            OracleTransaction transacao = conexao.BeginTransaction();
+
+            try
+            {
+                OracleCommand cmdPagar = conexao.CreateCommand();
+                cmdPagar.Transaction = transacao;
+
+                cmdPagar.CommandText = @"UPDATE fstrespostasrh SET
+                                            RESPOSTAGESTOR = :respostagestor,
+                                            ACOESGESTOR = :acaogestor,
+                                            OBSERVACAO = :observacao,
+                                            DTPRAZO = TO_DATE(:dtprazo, 'dd/MM/yyyy'),
+                                            DTFINALIZAGESTOR = sysdate,
+                                            where codperg = :codperg
+                                            and codfunc = :codfunc 
+                                            and codgrupo = :codgrupo
+                                            and idpergunta = :idpesq";
+
+                cmdPagar.Parameters.AddWithValue(":codgrupo", codGrupo);
+                cmdPagar.Parameters.AddWithValue(":codperg", codPerg);
+                cmdPagar.Parameters.AddWithValue(":respostagestor", respostaGestor);
+                cmdPagar.Parameters.AddWithValue(":acaogestor", acoesgestor.Trim());
+                cmdPagar.Parameters.AddWithValue(":observacao", observacao.Trim());
+                cmdPagar.Parameters.AddWithValue(":codfunc", codFunc);
+                cmdPagar.Parameters.AddWithValue(":idpesq", idPesq);
+
+                if (data != null)
+                    cmdPagar.Parameters.AddWithValue(":dtprazo", data);
+                else
+                    cmdPagar.Parameters.AddWithValue(":dtprazo", DBNull.Value);
 
                 cmdPagar.ExecuteNonQuery();
 
@@ -153,7 +220,7 @@ namespace ProjetoAvaliacao.DAO
 
         public static DataTable RespostasSalvas(int codPerg, int codGrupo, int codFunc, int idPesq)
         {
-            string sql = $"select respostafunc, comentariofunc from fstrespostasrh where codperg = {codPerg} and codgrupo = {codGrupo} and codfunc = {codFunc} and idpergunta = {idPesq} and AVALEXP is null";
+            string sql = $"select respostagestor from fstrespostasrh where codperg = {codPerg} and codgrupo = {codGrupo} and codfunc = {codFunc} and idpergunta = {idPesq} and AVALEXP is null";
 
             return MetodosDB.ExecutaSelect(sql, "FESTPAN");
         }
