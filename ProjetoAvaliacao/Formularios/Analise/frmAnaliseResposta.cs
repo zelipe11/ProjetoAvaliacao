@@ -95,29 +95,19 @@ namespace ProjetoAvaliacao.Formularios.Analise
         {
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
-                if (!row.IsNewRow && (row.Cells["RESPOSTAGESTOR"].Value == null || string.IsNullOrWhiteSpace(row.Cells["RESPOSTAGESTOR"].Value.ToString())))
-                {
-                    MessageBox.Show("Todas as linhas devem ter as Respostas e Comentarios respondidos!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-            }
-
-            foreach (DataGridViewRow row in dataGridView1.Rows)
-            {
-                if (!row.IsNewRow)
+                if (!row.IsNewRow && row.Cells["RESPOSTAGESTOR"].Value != null)
                 {
                     int id = Convert.ToInt32(row.Cells["CODPERG"].Value);
                     int idperg = Convert.ToInt32(row.Cells["IDPERGUNTA"].Value);
-                    int respostaFunc = Convert.ToInt32(row.Cells["RESPOSTAGESTOR"].Value.ToString());
+                    int? respostaFunc = string.IsNullOrWhiteSpace(row.Cells["RESPOSTAGESTOR"].Value?.ToString()) ? (int?)null : Convert.ToInt32(row.Cells["RESPOSTAGESTOR"].Value);
                     string observacaoGestor = row.Cells["OBSERVACAO"].Value.ToString().Trim();
                     string acaoGestor = row.Cells["ACAOGESTOR"].Value.ToString().Trim();
-                    DateTime? dataprazo = Convert.ToDateTime(row.Cells["DTPRAZO"].Value.ToString());
+                    DateTime? dataprazo = string.IsNullOrWhiteSpace(row.Cells["DTPRAZO"].Value?.ToString()) ? (DateTime?)null : Convert.ToDateTime(row.Cells["DTPRAZO"].Value);
 
                     RespostaDAO.RespostasSalvasAnaliseGestor(CodGrupo, CodUser, id, respostaFunc, observacaoGestor, acaoGestor, idperg, dataprazo);
                 }
             }
             MessageBox.Show("Respostas Salvas com sucesso!");
-            this.Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -137,10 +127,10 @@ namespace ProjetoAvaliacao.Formularios.Analise
                 {
                     int id = Convert.ToInt32(row.Cells["CODPERG"].Value);
                     int idperg = Convert.ToInt32(row.Cells["IDPERGUNTA"].Value);
-                    int respostaFunc = Convert.ToInt32(row.Cells["RESPOSTAGESTOR"].Value.ToString());
+                    int? respostaFunc = string.IsNullOrWhiteSpace(row.Cells["RESPOSTAGESTOR"].Value?.ToString()) ? (int?)null : Convert.ToInt32(row.Cells["RESPOSTAGESTOR"].Value);
                     string observacaoGestor = row.Cells["OBSERVACAO"].Value.ToString().Trim();
                     string acaoGestor = row.Cells["ACAOGESTOR"].Value.ToString().Trim();
-                    DateTime? dataprazo = Convert.ToDateTime(row.Cells["DTPRAZO"].Value.ToString());
+                    DateTime? dataprazo = string.IsNullOrWhiteSpace(row.Cells["DTPRAZO"].Value?.ToString()) ? (DateTime?)null : Convert.ToDateTime(row.Cells["DTPRAZO"].Value);
 
                     RespostaDAO.RespostasFinalizaAnaliseGestor(CodGrupo, CodUser, id, respostaFunc, observacaoGestor, acaoGestor, idperg, dataprazo);
                 }
